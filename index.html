@@ -19383,10 +19383,28 @@ await micropip.install("openpyxl")
         }, 300);
 
     } catch (err) {
-        loadingText.textContent = "加载失败: " + err.message;
+        console.error("Pyodide init error:", err);
+        loadingText.textContent = "加载失败: " + (err.message || String(err));
         loadingProgress.style.width = "0%";
         statusEl.innerHTML = '<span class="status-dot"></span><span>加载失败</span>';
-        console.error("Pyodide init error:", err);
+
+        // Add retry button
+        var retryBtn = document.createElement("button");
+        retryBtn.className = "btn btn-primary";
+        retryBtn.style.cssText = "margin-top:16px;padding:10px 24px;font-size:1rem";
+        retryBtn.innerHTML = '<i class="fas fa-rotate-right"></i> 重新加载';
+        retryBtn.onclick = function() {
+            pyodideReady = false;
+            pyodide = null;
+            initPyodide(true);
+        };
+        var overlay = document.getElementById("loadingOverlay");
+        if (overlay) {
+            var old = overlay.querySelector(".retry-btn");
+            if (old) old.remove();
+            retryBtn.classList.add("retry-btn");
+            overlay.querySelector(".loading-content").appendChild(retryBtn);
+        }
     }
 }
 
