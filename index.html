@@ -19163,9 +19163,51 @@ function updateProgress() {
 // ============================================================
 function handleSearch(query) {
     const q = query.toLowerCase().trim();
-    document.querySelectorAll(".nav-item[data-nav-id]").forEach(item => {
-        const label = item.querySelector(".nav-label").textContent.toLowerCase();
-        item.style.display = (!q || label.includes(q)) ? "flex" : "none";
+    const nav = document.getElementById("sidebarNav");
+
+    if (!q) {
+        // Clear search: show everything
+        nav.querySelectorAll(".nav-item, .nav-section").forEach(el => el.style.display = "");
+        return;
+    }
+
+    // Hide all sections first
+    nav.querySelectorAll(".nav-section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Show welcome-type items that match
+    nav.querySelectorAll(".nav-item:not([data-nav-id])").forEach(item => {
+        const label = item.querySelector(".nav-label");
+        if (label && label.textContent.toLowerCase().includes(q)) {
+            item.style.display = "flex";
+        } else {
+            item.style.display = "none";
+        }
+    });
+
+    // For each section, check if any child matches
+    nav.querySelectorAll(".nav-section").forEach(section => {
+        const sectionTitle = section.querySelector(".nav-section-title span");
+        const sectionText = sectionTitle ? sectionTitle.textContent.toLowerCase() : "";
+        const items = section.querySelectorAll(".nav-item[data-nav-id]");
+        let hasMatch = sectionText.includes(q);
+
+        items.forEach(item => {
+            const label = item.querySelector(".nav-label");
+            if (label && label.textContent.toLowerCase().includes(q)) {
+                item.style.display = "flex";
+                hasMatch = true;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        if (hasMatch) {
+            section.style.display = "";
+            // Auto-expand matching section
+            section.classList.remove("collapsed");
+        }
     });
 }
 
