@@ -19433,10 +19433,20 @@ function renderWelcome(area) {
                 <h3>10个实操项目</h3>
                 <p>从数据预处理到全流程综合项目，循序渐进</p>
             </div>
-            <div class="welcome-card" onclick="showDataPreview('user_behavior')">
-                <i class="fas fa-database"></i>
-                <h3>7个真实数据集</h3>
-                <p>用户行为、购物车、商品、销售、订单、时序、RFM</p>
+            <div class="welcome-card" onclick="navigateTo('concept-1')">
+                <i class="fas fa-lightbulb"></i>
+                <h3>核心概念</h3>
+                <p>描述性统计、相关与因果、概率分布、假设检验等10大核心概念</p>
+            </div>
+            <div class="welcome-card" onclick="navigateTo('cheatsheet')">
+                <i class="fas fa-book"></i>
+                <h3>函数速查手册</h3>
+                <p>pandas、sklearn、matplotlib等6大库的函数速查</p>
+            </div>
+            <div class="welcome-card" onclick="navigateTo('playground')">
+                <i class="fas fa-flask"></i>
+                <h3>自由编辑器</h3>
+                <p>上传自己的数据，自由编写和运行Python代码</p>
             </div>
         </div>
         <div class="upload-section" style="margin-top:30px;text-align:left;">
