@@ -1097,6 +1097,92 @@ body {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
 }
+
+/* Concept Card Styles */
+.concept-hero {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    padding: 24px;
+    border-radius: 12px;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.concept-hero.blue { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.concept-hero.purple { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+.concept-hero.green { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.concept-hero.orange { background: linear-gradient(135deg, #fa709a, #fee140); }
+.concept-hero.teal { background: linear-gradient(135deg, #38f9d7, #43e97b); }
+.concept-hero.pink { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.concept-hero.gold { background: linear-gradient(135deg, #f6d365, #fda085); }
+.concept-hero.indigo { background: linear-gradient(135deg, #667eea, #764ba2); }
+.concept-hero.cyan { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.concept-hero.rose { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+.concept-hero-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+.concept-hero h3 { margin: 0; font-size: 1.3rem; }
+.concept-hero p { margin: 4px 0 0; opacity: 0.9; font-size: 0.9rem; }
+.concept-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+}
+.concept-section h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    color: var(--accent);
+}
+.concept-section h4 i { font-size: 0.9rem; }
+.concept-item {
+    background: var(--bg-tertiary);
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--accent);
+}
+.concept-item h5 { margin: 0 0 6px; font-size: 1rem; }
+.concept-item .formula {
+    background: rgba(137,180,250,0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin: 6px 0;
+    color: var(--accent);
+}
+.concept-item .desc { color: var(--text-secondary); line-height: 1.7; font-size: 0.9rem; }
+.concept-example {
+    background: rgba(255,193,7,0.08);
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--yellow);
+}
+.concept-example strong { color: var(--yellow); }
+.concept-example .desc { color: var(--text-secondary); line-height: 1.7; font-size: 0.9rem; }
+.concept-tip {
+    background: rgba(137,180,250,0.08);
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--accent);
+}
+.concept-tip strong { color: var(--accent); }
+.concept-tip .desc { color: var(--text-secondary); line-height: 1.7; font-size: 0.9rem; }
 </style>
 </head>
 <body class="dark-theme">
@@ -16193,34 +16279,65 @@ print(f"\n重复行数: {df.duplicated().sum()}")</code></pre>
         title: "描述性统计",
         desc: "用数值指标和图表概括数据的整体特征",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">📊 什么是描述性统计？</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">描述性统计是通过<strong>数值指标</strong>和<strong>可视化图表</strong>来概括数据整体特征的方法。它不推断总体，只描述手头的数据。</p>
+<div class="concept-hero">
+    <div class="concept-hero-icon">📊</div>
+    <div><h3>核心概念：描述性统计</h3><p>用数值和图表概括数据的整体特征</p></div>
 </div>
 
-<h4>🔑 核心指标</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">指标</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">含义</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">公式/说明</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">适用场景</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>均值 (Mean)</strong></td><td style="padding:8px;border:1px solid var(--border)">所有值的算术平均</td><td style="padding:8px;border:1px solid var(--border)">总和 / 个数</td><td style="padding:8px;border:1px solid var(--border)">数据对称分布时</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>中位数 (Median)</strong></td><td style="padding:8px;border:1px solid var(--border)">排序后中间的值</td><td style="padding:8px;border:1px solid var(--border)">第50%分位数</td><td style="padding:8px;border:1px solid var(--border)">有异常值时更稳健</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>众数 (Mode)</strong></td><td style="padding:8px;border:1px solid var(--border)">出现次数最多的值</td><td style="padding:8px;border:1px solid var(--border)">频率最高</td><td style="padding:8px;border:1px solid var(--border)">分类数据</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>标准差 (Std)</strong></td><td style="padding:8px;border:1px solid var(--border)">数据偏离均值的程度</td><td style="padding:8px;border:1px solid var(--border)">方差的开方</td><td style="padding:8px;border:1px solid var(--border)">衡量数据离散度</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>分位数</strong></td><td style="padding:8px;border:1px solid var(--border)">将数据等分的位置值</td><td style="padding:8px;border:1px solid var(--border)">Q1(25%), Q3(75%)</td><td style="padding:8px;border:1px solid var(--border)">箱线图、异常值检测</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>偏度 (Skewness)</strong></td><td style="padding:8px;border:1px solid var(--border)">分布的对称程度</td><td style="padding:8px;border:1px solid var(--border)">>0右偏, <0左偏</td><td style="padding:8px;border:1px solid var(--border)">判断是否需要变换</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>峰度 (Kurtosis)</strong></td><td style="padding:8px;border:1px solid var(--border)">分布的尖峰程度</td><td style="padding:8px;border:1px solid var(--border)">>3尖峰, <3扁平</td><td style="padding:8px;border:1px solid var(--border)">异常值检测</td></tr>
-</table>
-
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 均值 vs 中位数的选择</strong><br>
-数据有异常值时，<strong>中位数比均值更可靠</strong>。例如：5个人的工资是 [3000,4000,5000,6000,100000]，均值=23600（被拉高），中位数=5000（更能代表一般水平）。
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">描述性统计是数据分析的第一步。在拿到数据后，我们首先需要了解数据的「全貌」——数据的中心在哪里？分散程度如何？分布是什么形状？</p>
 </div>
 
-<h4>📈 常用可视化</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>直方图</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">查看数据分布形态（正态？偏态？）</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>箱线图</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">快速识别异常值和四分位数</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>散点图</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">观察两个变量之间的关系</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>热力图</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">相关系数矩阵的可视化</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 核心指标</h4>
+    <div class="concept-item">
+        <h5>1. 均值 (Mean)</h5>
+        <div class="formula">Mean = (x₁ + x₂ + ... + xₙ) / n</div>
+        <div class="desc">所有数值的算术平均。优点：利用了每个数据点的信息。缺点：对异常值非常敏感。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 中位数 (Median)</h5>
+        <div class="formula">将数据排序后，位于中间位置的值</div>
+        <div class="desc">不受极端值影响，比均值更稳健。当数据有异常值时，中位数更能代表「一般水平」。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. 标准差 (Standard Deviation)</h5>
+        <div class="formula">Std = √[Σ(xᵢ - Mean)² / n]</div>
+        <div class="desc">衡量数据偏离均值的平均程度。标准差越大，数据越分散；标准差越小，数据越集中。</div>
+    </div>
+    <div class="concept-item">
+        <h5>4. 分位数 (Quantile)</h5>
+        <div class="formula">Q1 = 25%分位数, Q2 = 50%(中位数), Q3 = 75%分位数</div>
+        <div class="desc">将数据等分为若干份的位置值。IQR = Q3 - Q1，用于箱线图和异常值检测。</div>
+    </div>
+    <div class="concept-item">
+        <h5>5. 偏度 (Skewness)</h5>
+        <div class="formula">偏度 > 0 → 右偏（长尾在右），偏度 < 0 → 左偏</div>
+        <div class="desc">衡量分布的对称性。消费金额通常是右偏分布（少数人消费极高）。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例</strong>
+    <div class="desc">
+    某电商用户的月消费金额如下：<br>
+    [120, 150, 180, 200, 220, 250, 300, 350, 500, 5000]<br><br>
+    <strong>均值</strong> = 727元（被5000拉高，不能代表一般用户）<br>
+    <strong>中位数</strong> = 235元（更能代表大多数用户的消费水平）<br>
+    <strong>标准差</strong> = 1496元（数据非常分散）<br><br>
+    结论：这个数据集<strong>右偏严重</strong>，应该用中位数描述中心趋势。
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>🔧 Python 代码</strong>
+    <div class="desc">
+    <code>df.describe()</code> — 一键查看所有数值列的均值、标准差、分位数<br>
+    <code>df['消费金额'].median()</code> — 中位数<br>
+    <code>df['消费金额'].skew()</code> — 偏度<br>
+    <code>df.hist(figsize=(10,6))</code> — 直方图查看分布
+    </div>
 </div>
 `
     },
@@ -16228,35 +16345,55 @@ print(f"\n重复行数: {df.duplicated().sum()}")</code></pre>
         title: "相关与因果",
         desc: "区分相关性不等于因果性",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">🔗 相关 vs 因果</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">这是数据分析中最容易犯的错误之一。<strong>相关不等于因果</strong>——两个变量同时变化，不代表一个导致了另一个。</p>
+<div class="concept-hero blue">
+    <div class="concept-hero-icon">🔗</div>
+    <div><h3>核心概念：相关与因果</h3><p>区分「一起变化」和「一个导致另一个」</p></div>
 </div>
 
-<h4>📊 相关性的三种度量</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">方法</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">衡量什么</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">取值范围</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">适用条件</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">Pearson</td><td style="padding:8px;border:1px solid var(--border)">线性相关程度</td><td style="padding:8px;border:1px solid var(--border)">-1 到 +1</td><td style="padding:8px;border:1px solid var(--border)">连续正态分布数据</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">Spearman</td><td style="padding:8px;border:1px solid var(--border)">单调相关程度</td><td style="padding:8px;border:1px solid var(--border)">-1 到 +1</td><td style="padding:8px;border:1px solid var(--border)">有序数据/非正态</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">Kendall</td><td style="padding:8px;border:1px solid var(--border)">秩次一致性</td><td style="padding:8px;border:1px solid var(--border)">-1 到 +1</td><td style="padding:8px;border:1px solid var(--border)">小样本/有大量相同值</td></tr>
-</table>
-
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 经典陷阱：混淆变量</strong><br>
-冰淇淋销量和溺水人数高度正相关（r>0.9），但冰淇淋不会导致溺水！真正的因果因素是<strong>气温</strong>（混淆变量）：天热→买冰淇淋多、游泳多→溺水多。
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">相关性描述两个变量「是否一起变化」，因果性描述「一个变量的变化是否导致另一个变化」。相关不等于因果，这是数据分析中最常见的陷阱。</p>
 </div>
 
-<h4>🧪 如何判断因果？</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>随机对照实验 (RCT)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">因果推断的「金标准」，随机分组消除混杂</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>A/B 测试</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">互联网产品中最常用的因果验证方法</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>控制变量法</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">固定其他变量，只改变一个变量观察效果</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>工具变量法 (IV)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">用外部变量间接推断因果关系</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 三种相关系数</h4>
+    <div class="concept-item">
+        <h5>1. 皮尔逊相关系数 (Pearson)</h5>
+        <div class="formula">r = Σ(xᵢ-x̄)(yᵢ-ȳ) / √[Σ(xᵢ-x̄)² × Σ(yᵢ-ȳ)²]</div>
+        <div class="desc">衡量<strong>线性相关</strong>程度。r=1完全正相关，r=-1完全负相关，r=0无线性相关。要求：连续数据、近似正态分布、线性关系。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 斯皮尔曼相关系数 (Spearman)</h5>
+        <div class="formula">基于数据的排名（Rank）计算相关系数</div>
+        <div class="desc">衡量<strong>单调相关</strong>程度。不要求正态分布，适合有序数据和非线性但单调的关系。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. 判断标准</h5>
+        <div class="formula">|r| >= 0.7 强相关 | 0.4 <= |r| < 0.7 中等相关 | |r| < 0.4 弱相关</div>
+        <div class="desc">相关系数只告诉你线性关系的强弱，不告诉你关系的方向是否合理。</div>
+    </div>
 </div>
 
-<div style="background:rgba(137,180,250,0.1);padding:12px;border-radius:8px;margin:12px 0">
-<strong>💡 数据分析中的原则</strong><br>
-先找相关（描述性分析），再验证因果（实验设计）。相关性告诉你「值得深入研究」，因果性告诉你「可以采取行动」。
+<div class="concept-example">
+    <strong>💡 经典案例：冰淇淋与溺水</strong>
+    <div class="desc">
+    数据显示：冰淇淋销量和溺水人数高度正相关（r > 0.9）。<br><br>
+    能得出「吃冰淇淋导致溺水」吗？<strong>当然不能！</strong><br><br>
+    真正的因果链是：<br>
+    <strong>气温升高</strong> → 买冰淇淋的人增多 → 冰淇淋销量上升<br>
+    <strong>气温升高</strong> → 游泳的人增多 → 溺水人数上升<br><br>
+    「气温」就是<strong>混淆变量（Confounder）</strong>，它同时影响了两个变量，制造了虚假的相关性。
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>🔧 如何验证因果？</strong>
+    <div class="desc">
+    1. <strong>随机对照实验(RCT)</strong>：随机分组，消除混杂因素（金标准）<br>
+    2. <strong>A/B测试</strong>：互联网产品最常用的因果验证方法<br>
+    3. <strong>控制变量</strong>：固定其他变量，只改变一个变量<br>
+    4. <strong>工具变量</strong>：用外部变量间接推断因果关系
+    </div>
 </div>
 `
     },
@@ -16264,32 +16401,57 @@ print(f"\n重复行数: {df.duplicated().sum()}")</code></pre>
         title: "概率与分布",
         desc: "理解数据背后的概率规律",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">🎲 概率与分布</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">概率是描述不确定性事件发生可能性的数学工具。数据分布则描述了数据取值的概率规律。</p>
+<div class="concept-hero purple">
+    <div class="concept-hero-icon">🎲</div>
+    <div><h3>核心概念：概率与分布</h3><p>理解数据背后的随机规律</p></div>
 </div>
 
-<h4>📊 常见数据分布</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">分布</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">形状特征</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">典型应用</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>正态分布</strong></td><td style="padding:8px;border:1px solid var(--border)">钟形对称，均值=中位数=众数</td><td style="padding:8px;border:1px solid var(--border)">身高、考试成绩、测量误差</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>均匀分布</strong></td><td style="padding:8px;border:1px solid var(--border)">所有值等概率</td><td style="padding:8px;border:1px solid var(--border)">随机数生成、掷骰子</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>泊松分布</strong></td><td style="padding:8px;border:1px solid var(--border)">描述稀有事件的发生次数</td><td style="padding:8px;border:1px solid var(--border)">网站每分钟访问量、客服来电数</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>二项分布</strong></td><td style="padding:8px;border:1px solid var(--border)">n次独立实验中成功的次数</td><td style="padding:8px;border:1px solid var(--border)">抛硬币、质检合格率</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>长尾分布</strong></td><td style="padding:8px;border:1px solid var(--border)">右偏，少数值极大</td><td style="padding:8px;border:1px solid var(--border)">收入分布、消费金额</td></tr>
-</table>
-
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 中心极限定理 (CLT)</strong><br>
-无论原始数据是什么分布，<strong>样本均值</strong>的分布都会趋近于正态分布（样本量>=30时）。这是统计推断的理论基础。
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">概率描述事件发生可能性的大小（0到1之间）。数据分布描述了数据取值的概率规律——哪些值更可能出现，哪些值很少出现。</p>
 </div>
 
-<h4>📐 关键概率概念</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>条件概率 P(A|B)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">在B已发生的前提下A发生的概率</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>贝叶斯定理</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">用新证据更新先验概率得到后验概率</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>大数定律</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">样本量越大，样本均值越接近总体均值</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>置信区间</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">以一定概率包含总体参数的区间范围</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 常见分布</h4>
+    <div class="concept-item">
+        <h5>1. 正态分布 (Normal Distribution)</h5>
+        <div class="formula">钟形对称曲线，均值=中位数=众数</div>
+        <div class="desc">自然界最常见的分布。约68%数据在均值±1个标准差内，约95%在±2个标准差内，约99.7%在±3个标准差内（3σ原则）。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 泊松分布 (Poisson)</h5>
+        <div class="formula">P(X=k) = (λᵏ × e^(-λ)) / k! ，λ为平均发生率</div>
+        <div class="desc">描述<strong>稀有事件</strong>在固定时间/空间内的发生次数。如：每小时来3个客户（λ=3），求来5个客户的概率。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. 二项分布 (Binomial)</h5>
+        <div class="formula">P(X=k) = C(n,k) × pᵏ × (1-p)^(n-k)</div>
+        <div class="desc">n次独立实验中成功k次的概率。如：抛10次硬币（n=10），出现3次正面（k=3）的概率。</div>
+    </div>
+    <div class="concept-item">
+        <h5>4. 长尾分布 (Long-tail)</h5>
+        <div class="formula">右偏分布，少数值极大，拖出长尾</div>
+        <div class="desc">电商消费、网页访问、收入分布都是长尾分布。少数用户贡献大部分收入（二八法则）。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例</strong>
+    <div class="desc">
+    某网站平均每分钟访问 5 人（λ=5，服从泊松分布）：<br><br>
+    每分钟来 <strong>0人</strong> 的概率 = e^(-5) × 5⁰/0! ≈ 0.67%<br>
+    每分钟来 <strong>5人</strong> 的概率 = e^(-5) × 5⁵/5! ≈ 17.5%<br>
+    每分钟来 <strong>10人</strong> 的概率 = e^(-5) × 5¹⁰/10! ≈ 1.8%<br><br>
+    可以用这个来规划服务器容量！
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>⚠️ 中心极限定理 (CLT)</strong>
+    <div class="desc">
+    无论原始数据是什么分布，<strong>样本均值</strong>的分布都会趋近于正态分布（样本量>=30时）。<br><br>
+    这是统计推断的理论基础——即使数据不服从正态分布，我们仍然可以用正态分布的方法来分析均值。
+    </div>
 </div>
 `
     },
@@ -16297,32 +16459,59 @@ print(f"\n重复行数: {df.duplicated().sum()}")</code></pre>
         title: "假设检验",
         desc: "用统计方法验证业务假设",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">🧪 假设检验</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">假设检验是用统计方法判断某个结论是否具有显著性。核心思想：先假设「没有效果」，然后用数据看能否推翻这个假设。</p>
+<div class="concept-hero green">
+    <div class="concept-hero-icon">🧪</div>
+    <div><h3>核心概念：假设检验</h3><p>用统计方法验证业务假设是否成立</p></div>
 </div>
 
-<h4>📋 假设检验四步法</h4>
-<div style="margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid var(--accent)"><strong>第1步：建立假设</strong><br><span style="color:var(--text-secondary)">H0（零假设）：没有效果/没有差异（要推翻的）<br>H1（备择假设）：有效果/有差异（想证明的）</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid var(--accent)"><strong>第2步：选择检验方法</strong><br><span style="color:var(--text-secondary)">根据数据类型和样本量选择合适的统计检验</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid var(--accent)"><strong>第3步：计算p值</strong><br><span style="color:var(--text-secondary)">在H0成立的前提下，观察到当前或更极端结果的概率</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;border-left:3px solid var(--accent)"><strong>第4步：做出判断</strong><br><span style="color:var(--text-secondary)">p < 0.05 → 拒绝H0，认为有显著差异<br>p >= 0.05 → 不能拒绝H0，差异不显著</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">假设检验的核心思想：先假设「没有效果」（零假设H0），然后用数据看能否推翻它。如果数据提供的证据足够强（p值足够小），我们就拒绝H0，认为「有效果」。</p>
 </div>
 
-<h4>📊 常用检验方法</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">检验方法</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">用途</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">条件</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">t检验</td><td style="padding:8px;border:1px solid var(--border)">比较两组均值是否有差异</td><td style="padding:8px;border:1px solid var(--border)">正态分布、样本量小</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">卡方检验</td><td style="padding:8px;border:1px solid var(--border)">分类变量之间是否独立</td><td style="padding:8px;border:1px solid var(--border)">期望频数>=5</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">ANOVA</td><td style="padding:8px;border:1px solid var(--border)">多组均值是否有差异</td><td style="padding:8px;border:1px solid var(--border)">正态分布、方差齐性</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">Mann-Whitney U</td><td style="padding:8px;border:1px solid var(--border)">两组非参数检验</td><td style="padding:8px;border:1px solid var(--border)">非正态分布</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">KS检验</td><td style="padding:8px;border:1px solid var(--border)">样本是否来自某分布</td><td style="padding:8px;border:1px solid var(--border)">连续分布</td></tr>
-</table>
+<div class="concept-section">
+    <h4><i class="fas fa-shoe-prints"></i> 四步法</h4>
+    <div class="concept-item">
+        <h5>第1步：建立假设</h5>
+        <div class="formula">H0（零假设）：没有效果/没有差异（要推翻的）<br>H1（备择假设）：有效果/有差异（想证明的）</div>
+        <div class="desc">例如：H0 = 新页面转化率与旧页面相同，H1 = 新页面转化率更高</div>
+    </div>
+    <div class="concept-item">
+        <h5>第2步：选择检验方法</h5>
+        <div class="formula">根据数据类型和样本量选择合适的统计检验方法</div>
+        <div class="desc">比较两组均值用t检验，比较分类变量用卡方检验，比较多组用ANOVA。</div>
+    </div>
+    <div class="concept-item">
+        <h5>第3步：计算p值</h5>
+        <div class="formula">p值 = 在H0为真的前提下，观察到当前或更极端结果的概率</div>
+        <div class="desc">p值越小，说明「H0为真」的可能性越低，证据越强。</div>
+    </div>
+    <div class="concept-item">
+        <h5>第4步：做出判断</h5>
+        <div class="formula">p < 0.05 → 拒绝H0，差异显著<br>p >= 0.05 → 不能拒绝H0，差异不显著</div>
+        <div class="desc">显著性水平α通常取0.05，即「容忍5%的犯错概率」。</div>
+    </div>
+</div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ p值的正确理解</strong><br>
-p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前提下，观察到当前数据的概率」。p<0.05 只意味着「如果H0为真，出现这种数据的概率不到5%」，所以我们选择拒绝H0。
+<div class="concept-example">
+    <strong>💡 实际案例：A/B测试</strong>
+    <div class="desc">
+    某电商要测试新按钮是否能提高点击率：<br><br>
+    旧按钮：1000次展示，50次点击（5%）<br>
+    新按钮：1000次展示，70次点击（7%）<br><br>
+    H0：新按钮和旧按钮点击率相同<br>
+    计算得 p = 0.038 < 0.05<br><br>
+    <strong>结论</strong>：拒绝H0，新按钮的点击率显著高于旧按钮！
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>⚠️ p值的正确理解</strong>
+    <div class="desc">
+    p值<strong>不是</strong>「H0为真的概率」！<br>
+    p值是「在H0为真时，观察到当前数据的概率」。<br><br>
+    p=0.03 的正确解读：如果新旧按钮真的没有差别，那么观察到7% vs 5%这种差异的概率只有3%，这个概率太小了，所以我们不相信H0。
+    </div>
 </div>
 `
     },
@@ -16330,33 +16519,68 @@ p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前
         title: "回归分析",
         desc: "用数学模型量化变量间的关系",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">📈 回归分析</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">回归分析用数学模型描述自变量(X)和因变量(Y)之间的关系，用于<strong>预测</strong>和<strong>归因分析</strong>。</p>
+<div class="concept-hero orange">
+    <div class="concept-hero-icon">📈</div>
+    <div><h3>核心概念：回归分析</h3><p>用数学模型量化变量之间的关系并预测</p></div>
 </div>
 
-<h4>📊 回归类型对比</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">类型</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">公式</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">适用场景</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">优缺点</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">线性回归</td><td style="padding:8px;border:1px solid var(--border)">y = w1x1 + w2x2 + ... + b</td><td style="padding:8px;border:1px solid var(--border)">线性关系</td><td style="padding:8px;border:1px solid var(--border)">简单可解释，但只能捕捉线性关系</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">多项式回归</td><td style="padding:8px;border:1px solid var(--border)">y = w1x + w2x² + ...</td><td style="padding:8px;border:1px solid var(--border)">非线性曲线关系</td><td style="padding:8px;border:1px solid var(--border)">灵活，但容易过拟合</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">随机森林</td><td style="padding:8px;border:1px solid var(--border)">多棵决策树投票</td><td style="padding:8px;border:1px solid var(--border)">复杂非线性关系</td><td style="padding:8px;border:1px solid var(--border)">精度高，但可解释性差</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">逻辑回归</td><td style="padding:8px;border:1px solid var(--border)">p = 1/(1+e^(-z))</td><td style="padding:8px;border:1px solid var(--border)">分类问题（0/1）</td><td style="padding:8px;border:1px solid var(--border)">输出概率，可解释性强</td></tr>
-</table>
-
-<h4>🔑 关键评估指标</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>R² (决定系数)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">模型解释了多少变异。0.7表示模型解释了70%的数据变化。越接近1越好。</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>MAE (平均绝对误差)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">预测值与真实值的平均差距。单位与Y相同，直观易懂。</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>RMSE (均方根误差)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">对大误差更敏感。用于比较模型精度。</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>VIF (方差膨胀因子)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">检测多重共线性。VIF>10说明特征间高度相关，需去掉一个。</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">回归分析用数学方程描述自变量(X)和因变量(Y)之间的关系。核心目标：<strong>预测</strong>（给定X，预测Y的值）和<strong>归因</strong>（哪个X对Y影响最大）。</p>
 </div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 过拟合 vs 欠拟合</strong><br>
-<strong>过拟合</strong>：训练集表现好，测试集表现差 → 模型太复杂，记住了噪声<br>
-<strong>欠拟合</strong>：训练集和测试集都表现差 → 模型太简单，没学到规律<br>
-<strong>解决</strong>：交叉验证、正则化、增加数据、减少特征
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 常见回归类型</h4>
+    <div class="concept-item">
+        <h5>1. 一元线性回归</h5>
+        <div class="formula">y = wx + b（一条直线拟合数据）</div>
+        <div class="desc">w是斜率（x每增加1，y变化多少），b是截距。R²越接近1，拟合越好。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 多元线性回归</h5>
+        <div class="formula">y = w₁x₁ + w₂x₂ + ... + wₙxₙ + b</div>
+        <div class="desc">用多个特征预测目标。每个wᵢ表示对应特征的「权重」（影响程度）。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. 随机森林回归</h5>
+        <div class="formula">多棵决策树分别预测，取平均值作为最终结果</div>
+        <div class="desc">能捕捉非线性关系。n_estimators控制树的数量，max_depth控制树深度（太深会过拟合）。</div>
+    </div>
+</div>
+
+<div class="concept-section">
+    <h4><i class="fas fa-chart-bar"></i> 评估指标</h4>
+    <div class="concept-item">
+        <h5>R² (决定系数)</h5>
+        <div class="formula">R² = 1 - SS_res / SS_tot，取值 0~1</div>
+        <div class="desc">模型解释了多少数据变异。R²=0.8表示模型解释了80%的变化。>0.7为优秀。</div>
+    </div>
+    <div class="concept-item">
+        <h5>MAE (平均绝对误差)</h5>
+        <div class="formula">MAE = Σ|yᵢ - ŷᵢ| / n</div>
+        <div class="desc">预测值与真实值的平均差距。单位与Y相同，直观易懂。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例：预测销量</strong>
+    <div class="desc">
+    用广告费、活动次数、客单价预测销量：<br><br>
+    <strong>线性回归</strong>：销量 = 0.5×广告费 + 20×活动次数 + 0.3×客单价 + 100<br>
+    → R² = 0.65，MAE = 50<br><br>
+    <strong>随机森林</strong>：100棵树，最大深度5<br>
+    → R² = 0.82，MAE = 30<br><br>
+    结论：随机森林效果更好，能捕捉非线性关系（如广告费超过某个阈值后效果递减）。
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>⚠️ 过拟合 vs 欠拟合</strong>
+    <div class="desc">
+    <strong>过拟合</strong>：训练集表现好，测试集表现差 → 模型太复杂，记住了噪声<br>
+    <strong>欠拟合</strong>：训练集和测试集都差 → 模型太简单<br>
+    <strong>解决方案</strong>：交叉验证、正则化、增加数据、减少特征
+    </div>
 </div>
 `
     },
@@ -16364,31 +16588,48 @@ p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前
         title: "聚类与分类",
         desc: "将数据分组发现内在结构",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">🎯 聚类 vs 分类</h3>
-<p style="line-height:1.8;color:var(--text-secondary)"><strong>聚类（无监督）</strong>：没有标签，算法自动发现数据中的分组。<br><strong>分类（有监督）</strong>：有标签，算法学习如何将新数据分到已知类别。</p>
+<div class="concept-hero teal">
+    <div class="concept-hero-icon">🎯</div>
+    <div><h3>核心概念：聚类与分类</h3><p>将数据分组，发现内在结构</p></div>
 </div>
 
-<h4>📊 聚类算法对比</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">算法</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">原理</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">需指定k</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">适用场景</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">KMeans</td><td style="padding:8px;border:1px solid var(--border)">最小化到簇中心的距离</td><td style="padding:8px;border:1px solid var(--border)">是</td><td style="padding:8px;border:1px solid var(--border)">球形簇、大数据量</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">DBSCAN</td><td style="padding:8px;border:1px solid var(--border)">基于密度，自动发现任意形状簇</td><td style="padding:8px;border:1px solid var(--border)">否</td><td style="padding:8px;border:1px solid var(--border)">有噪声、不规则形状</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">层次聚类</td><td style="padding:8px;border:1px solid var(--border)">自底向上合并/自顶向下分裂</td><td style="padding:8px;border:1px solid var(--border)">否（树状图选）</td><td style="padding:8px;border:1px solid var(--border)">小数据、需要层次结构</td></tr>
-</table>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8"><strong>聚类（无监督学习）</strong>：没有标签，算法自动发现数据中的自然分组。如：将用户分为高价值、中价值、低价值。<br><strong>分类（有监督学习）</strong>：有标签，算法从已标注数据中学习规则，用于预测新数据。如：判断邮件是否为垃圾邮件。</p>
+</div>
 
-<h4>📊 分类算法对比</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">算法</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">原理</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">优点</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">缺点</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">逻辑回归</td><td style="padding:8px;border:1px solid var(--border)">Sigmoid函数映射到概率</td><td style="padding:8px;border:1px solid var(--border)">简单、可解释</td><td style="padding:8px;border:1px solid var(--border)">只能处理线性可分</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">决策树</td><td style="padding:8px;border:1px solid var(--border)">if-else规则分裂</td><td style="padding:8px;border:1px solid var(--border)">直观、无需标准化</td><td style="padding:8px;border:1px solid var(--border)">容易过拟合</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">随机森林</td><td style="padding:8px;border:1px solid var(--border)">多棵决策树投票</td><td style="padding:8px;border:1px solid var(--border)">精度高、不易过拟合</td><td style="padding:8px;border:1px solid var(--border)">黑盒模型</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">SVM</td><td style="padding:8px;border:1px solid var(--border)">找最大间隔超平面</td><td style="padding:8px;border:1px solid var(--border)">高维数据表现好</td><td style="padding:8px;border:1px solid var(--border)">大数据慢、调参难</td></tr>
-</table>
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> KMeans 聚类算法</h4>
+    <div class="concept-item">
+        <h5>算法步骤</h5>
+        <div class="formula">1. 随机选择k个初始中心点<br>2. 将每个数据点分配到最近的中心<br>3. 重新计算每个簇的中心（均值）<br>4. 重复步骤2-3直到中心不再变化</div>
+        <div class="desc">目标：最小化每个数据点到其簇中心的距离之和（SSE/Inertia）。</div>
+    </div>
+    <div class="concept-item">
+        <h5>肘部法则选k值</h5>
+        <div class="formula">绘制 k值 vs SSE 的折线图，找「拐点」</div>
+        <div class="desc">SSE随k增大而减小，当减小速度明显放缓时的k值就是最优聚类数。</div>
+    </div>
+</div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 聚类前必须标准化！</strong><br>
-消费金额（万元级）和浏览时长（分钟级）量纲不同，不标准化会导致大数值特征主导聚类。用 StandardScaler 将所有特征缩放到相同尺度。
+<div class="concept-example">
+    <strong>💡 实际案例：用户分群</strong>
+    <div class="desc">
+    用消费金额、消费频次、最近消费天数对1000个用户聚类：<br><br>
+    <strong>分群0（高价值）</strong>：消费金额高、频次高、最近消费近 → VIP用户<br>
+    <strong>分群1（潜力用户）</strong>：消费金额中、频次中 → 有提升空间<br>
+    <strong>分群2（流失风险）</strong>：消费频次低、最近消费远 → 需要召回<br>
+    <strong>分群3（低价值）</strong>：消费金额低、频次低 → 自然流量<br><br>
+    针对每类用户制定不同的运营策略！
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>⚠️ 聚类前必须标准化！</strong>
+    <div class="desc">
+    消费金额（万元级）和浏览时长（分钟级）量纲不同，不标准化会导致大数值特征主导聚类结果。<br><br>
+    <code>from sklearn.preprocessing import StandardScaler<br>scaler = StandardScaler()<br>X_scaled = scaler.fit_transform(X)</code>
+    </div>
 </div>
 `
     },
@@ -16396,33 +16637,55 @@ p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前
         title: "时间序列",
         desc: "分析随时间变化的数据规律",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">⏰ 时间序列分析</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">时间序列是按时间顺序排列的数据点序列。分析目标是<strong>识别趋势</strong>、<strong>发现季节性</strong>、<strong>预测未来值</strong>。</p>
+<div class="concept-hero pink">
+    <div class="concept-hero-icon">⏰</div>
+    <div><h3>核心概念：时间序列分析</h3><p>分析随时间变化的数据规律并预测未来</p></div>
 </div>
 
-<h4>📐 时间序列的三大成分</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>📈 趋势 (Trend)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">长期上升或下降方向。如：电商GMV逐年增长</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>🔄 季节性 (Seasonality)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">固定周期的重复模式。如：双十一销量暴增</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>🎲 残差 (Residual)</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">去除趋势和季节性后的随机波动</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">时间序列是按时间顺序排列的数据点。分析的三大目标：<strong>识别趋势</strong>（整体上升还是下降）、<strong>发现季节性</strong>（是否有周期性重复模式）、<strong>预测未来</strong>（下个月销量是多少）。</p>
 </div>
 
-<h4>📊 常用方法</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">方法</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">用途</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">Python实现</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">移动平均</td><td style="padding:8px;border:1px solid var(--border)">平滑短期波动，揭示趋势</td><td style="padding:8px;border:1px solid var(--border)">df.rolling(n).mean()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">指数平滑</td><td style="padding:8px;border:1px solid var(--border)">近期数据权重更大</td><td style="padding:8px;border:1px solid var(--border)">df.ewm(span=n).mean()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">差分</td><td style="padding:8px;border:1px solid var(--border)">消除趋势，使序列平稳</td><td style="padding:8px;border:1px solid var(--border)">df.diff()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">ARIMA</td><td style="padding:8px;border:1px solid var(--border)">自回归积分滑动平均模型</td><td style="padding:8px;border:1px solid var(--border)">ARIMA(data, order=(p,d,q))</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">重采样</td><td style="padding:8px;border:1px solid var(--border)">改变时间粒度（日→周→月）</td><td style="padding:8px;border:1px solid var(--border)">df.resample(「M」).sum()</td></tr>
-</table>
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 三大成分分解</h4>
+    <div class="concept-item">
+        <h5>1. 趋势 (Trend)</h5>
+        <div class="formula">数据长期的整体方向：上升、下降或平稳</div>
+        <div class="desc">如：电商GMV逐年增长、用户活跃度逐月下降。用移动平均可以平滑短期波动来观察趋势。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 季节性 (Seasonality)</h5>
+        <div class="formula">固定周期的重复模式（日/周/月/季度/年）</div>
+        <div class="desc">如：每年双十一销量暴增、每周周末流量下降、每天中午订单高峰。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. 残差 (Residual)</h5>
+        <div class="formula">残差 = 实际值 - (趋势 + 季节性)</div>
+        <div class="desc">去除趋势和季节性后的随机波动。好的模型残差应该是随机的（没有规律）。</div>
+    </div>
+</div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ ARIMA参数选择</strong><br>
-<strong>p</strong>（自回归阶数）：用PACF图确定，PACF在p阶后截断<br>
-<strong>d</strong>（差分阶数）：使序列平稳所需的差分次数（通常0-2）<br>
-<strong>q</strong>（移动平均阶数）：用ACF图确定，ACF在q阶后截断
+<div class="concept-section">
+    <h4><i class="fas fa-robot"></i> ARIMA 模型</h4>
+    <div class="concept-item">
+        <h5>ARIMA(p, d, q)</h5>
+        <div class="formula">AR(p)：用过去p个值预测当前值（自回归）<br>I(d)：差分d次使序列平稳<br>MA(q)：用过去q个误差修正预测（移动平均）</div>
+        <div class="desc">p用PACF图确定，d使序列平稳（通常0-2），q用ACF图确定。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例：月度销量预测</strong>
+    <div class="desc">
+    某电商2023-2025年月度销量数据：<br><br>
+    1. <strong>重采样</strong>：按月汇总日数据 → df.resample('M').sum()<br>
+    2. <strong>移动平均</strong>：3个月滚动平均观察趋势 → df.rolling(3).mean()<br>
+    3. <strong>差分</strong>：一阶差分使序列平稳 → df.diff()<br>
+    4. <strong>建模</strong>：ARIMA(1,1,1) 拟合<br>
+    5. <strong>预测</strong>：未来3个月销量 → model.forecast(steps=3)<br><br>
+    预测结果：下个月约 12500 单，下下个月约 13200 单。
+    </div>
 </div>
 `
     },
@@ -16430,32 +16693,59 @@ p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前
         title: "关联规则",
         desc: "发现「买了A也会买B」的规律",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">🔗 关联规则挖掘</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">关联规则挖掘用于发现交易数据中「如果买了A，也会买B」的模式。最经典的例子是超市的「啤酒与尿布」。</p>
+<div class="concept-hero gold">
+    <div class="concept-hero-icon">🔗</div>
+    <div><h3>核心概念：关联规则挖掘</h3><p>发现「买了A也会买B」的购物规律</p></div>
 </div>
 
-<h4>📦 核心概念</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">概念</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">定义</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">例子</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>项 (Item)</strong></td><td style="padding:8px;border:1px solid var(--border)">单个商品</td><td style="padding:8px;border:1px solid var(--border)">牛奶、面包</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>项集 (Itemset)</strong></td><td style="padding:8px;border:1px solid var(--border)">多个项的集合</td><td style="padding:8px;border:1px solid var(--border)">{牛奶, 面包}</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>k-项集</strong></td><td style="padding:8px;border:1px solid var(--border)">包含k个项的项集</td><td style="padding:8px;border:1px solid var(--border)">{牛奶, 面包, 鸡蛋}是3-项集</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>频繁项集</strong></td><td style="padding:8px;border:1px solid var(--border)">支持度大于阈值的项集</td><td style="padding:8px;border:1px solid var(--border)">出现频率>=5%的项集</td></tr>
-</table>
-
-<h4>📐 三大核心指标</h4>
-<div style="margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid #4fc3f7"><strong>支持度 (Support)</strong> = 包含A和B的订单数 / 总订单数<br><span style="color:var(--text-secondary)">衡量规则的<strong>普遍性</strong>。支持度太低说明规则没有实际意义。</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid #4fc3f7"><strong>置信度 (Confidence)</strong> = 包含A和B的订单数 / 包含A的订单数<br><span style="color:var(--text-secondary)">衡量规则的<strong>可靠性</strong>。置信度0.8表示买A后有80%概率买B。</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px;border-left:3px solid #4fc3f7"><strong>提升度 (Lift)</strong> = 置信度(A→B) / B的支持度<br><span style="color:var(--text-secondary)">衡量规则的<strong>有效性</strong>。Lift>1说明A确实促进了B的购买。Lift=1说明A和B独立。</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">关联规则挖掘用于发现交易数据中的购买模式。最经典的案例是超市发现「买尿布的人往往也会买啤酒」。核心工具是 Apriori 算法。</p>
 </div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ Apriori算法流程</strong><br>
-1. 设定最小支持度 → 找出所有频繁项集<br>
-2. 从频繁项集生成关联规则 → 设定最小置信度<br>
-3. 用提升度筛选有效规则 → Lift > 1
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 基础概念</h4>
+    <div class="concept-item">
+        <h5>1. 项 (Item) 与 项集 (Itemset)</h5>
+        <div class="formula">项 = 单个商品（如「牛奶」）<br>项集 = 多个商品的集合（如 {牛奶, 面包}）<br>k-项集 = 包含k个商品的项集</div>
+        <div class="desc">{牛奶, 面包, 鸡蛋} 是一个3-项集。项集出现的频率越高，越有分析价值。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 频繁项集 (Frequent Itemset)</h5>
+        <div class="formula">支持度 >= 最小支持度阈值 的项集</div>
+        <div class="desc">如设定最小支持度5%，出现频率低于5%的项集直接忽略，减少计算量。</div>
+    </div>
+</div>
+
+<div class="concept-section">
+    <h4><i class="fas fa-chart-pie"></i> 三大核心指标</h4>
+    <div class="concept-item">
+        <h5>1. 支持度 (Support)</h5>
+        <div class="formula">Support(A→B) = 同时包含A和B的订单数 / 总订单数</div>
+        <div class="desc">衡量规则的<strong>普遍性</strong>。支持度太低说明这个规则只适用于少数情况，没有推广价值。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 置信度 (Confidence)</h5>
+        <div class="formula">Confidence(A→B) = Support(A,B) / Support(A)</div>
+        <div class="desc">衡量规则的<strong>可靠性</strong>。置信度0.8表示：买了A的顾客中，有80%也买了B。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. 提升度 (Lift)</h5>
+        <div class="formula">Lift(A→B) = Confidence(A→B) / Support(B)</div>
+        <div class="desc">衡量规则的<strong>有效性</strong>。Lift>1说明A确实促进了B的购买。Lift=1说明A和B独立（无关联）。Lift<1说明A反而抑制了B。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例</strong>
+    <div class="desc">
+    10000个订单数据挖掘关联规则：<br><br>
+    规则：{手机壳} → {手机膜}<br>
+    Support = 800/10000 = 8%<br>
+    Confidence = 800/1000 = 80%（买手机壳的人中80%也买了手机膜）<br>
+    Lift = 0.80 / 0.10 = 8.0（提升度8倍！）<br><br>
+    <strong>业务建议</strong>：手机壳和手机膜捆绑销售，或买手机壳时推荐手机膜。
+    </div>
 </div>
 `
     },
@@ -16463,29 +16753,56 @@ p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前
         title: "特征工程",
         desc: "把原始数据转化为模型可用的特征",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">🔧 特征工程</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">特征工程是将原始数据转化为更有信息量的特征的过程。好的特征比好的模型更重要——「Garbage in, garbage out」。</p>
+<div class="concept-hero indigo">
+    <div class="concept-hero-icon">🔧</div>
+    <div><h3>核心概念：特征工程</h3><p>将原始数据转化为模型可用的特征</p></div>
 </div>
 
-<h4>📋 常见特征工程方法</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">方法</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">说明</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">Python实现</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>缺失值填充</strong></td><td style="padding:8px;border:1px solid var(--border)">用均值/中位数/众数填充空值</td><td style="padding:8px;border:1px solid var(--border)">df.fillna()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>分箱/离散化</strong></td><td style="padding:8px;border:1px solid var(--border)">连续变量转为分类变量</td><td style="padding:8px;border:1px solid var(--border)">pd.cut() / pd.qcut()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>One-Hot编码</strong></td><td style="padding:8px;border:1px solid var(--border)">分类变量转为0/1向量</td><td style="padding:8px;border:1px solid var(--border)">pd.get_dummies()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>标准化</strong></td><td style="padding:8px;border:1px solid var(--border)">缩放到均值0标准差1</td><td style="padding:8px;border:1px solid var(--border)">StandardScaler()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>归一化</strong></td><td style="padding:8px;border:1px solid var(--border)">缩放到[0,1]范围</td><td style="padding:8px;border:1px solid var(--border)">MinMaxScaler()</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>特征交叉</strong></td><td style="padding:8px;border:1px solid var(--border)">两个特征相乘/组合</td><td style="padding:8px;border:1px solid var(--border)">df[「新特征」] = df[「A」] * df[「B」]</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>对数变换</strong></td><td style="padding:8px;border:1px solid var(--border)">处理右偏分布</td><td style="padding:8px;border:1px solid var(--border)">np.log1p(df[「col」])</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)"><strong>时间特征提取</strong></td><td style="padding:8px;border:1px solid var(--border)">从日期提取年/月/日/星期</td><td style="padding:8px;border:1px solid var(--border)">df[「月份」] = df[「日期」].dt.month</td></tr>
-</table>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">特征工程是将原始数据转化为更有信息量的特征的过程。在机器学习中，<strong>「数据和特征决定了模型的上限，算法只是逼近这个上限」</strong>。好的特征工程往往比选择更复杂的算法更有效。</p>
+</div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 标准化 vs 归一化</strong><br>
-<strong>标准化 (StandardScaler)</strong>：均值=0, 标准差=1 → 适合大多数机器学习算法<br>
-<strong>归一化 (MinMaxScaler)</strong>：最小值=0, 最大值=1 → 适合神经网络、图像处理<br>
-聚类和回归用标准化，深度学习用归一化。
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 常见方法</h4>
+    <div class="concept-item">
+        <h5>1. 缺失值处理</h5>
+        <div class="formula">数值型 → fillna(中位数/均值)<br>分类型 → fillna(「未知」)<br>大量缺失 → dropna(删除整行)</div>
+        <div class="desc">中位数比均值更稳健（不受异常值影响）。删除前要评估缺失比例，超过30%的列考虑删除。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. 分箱/离散化</h5>
+        <div class="formula">pd.cut(x, bins=3) → 等宽分箱（短/中/长）<br>pd.qcut(x, q=5) → 等频分箱（每档人数相同）</div>
+        <div class="desc">将连续变量转为分类变量。如：年龄→年龄段，消费金额→消费等级。RFM打分就用qcut。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. One-Hot 编码</h5>
+        <div class="formula">pd.get_dummies(df['性别'])<br>→ 性别_男 | 性别_女 | 性别_未知<br>  1    |   0    |   0</div>
+        <div class="desc">将分类变量转为0/1向量。大多数机器学习算法只能处理数值，所以分类变量必须编码。</div>
+    </div>
+    <div class="concept-item">
+        <h5>4. 标准化 vs 归一化</h5>
+        <div class="formula">StandardScaler: (x - 均值) / 标准差 → 均值0, 标准差1<br>MinMaxScaler: (x - 最小值) / (最大值 - 最小值) → [0,1]</div>
+        <div class="desc">聚类和回归用StandardScaler，神经网络用MinMaxScaler。聚类前<strong>必须</strong>标准化！</div>
+    </div>
+    <div class="concept-item">
+        <h5>5. 特征交叉</h5>
+        <div class="formula">df['人均消费'] = df['总消费'] / df['消费次数']<br>df['是否周末'] = df['星期'].isin([6, 7]).astype(int)</div>
+        <div class="desc">将多个特征组合为新特征，往往能提供比原始特征更强的预测能力。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例</strong>
+    <div class="desc">
+    原始数据：用户ID, 注册时间, 最近登录, 消费金额, 消费次数<br><br>
+    衍生特征：<br>
+    · <strong>活跃天数</strong> = 最后登录 - 注册时间（天）<br>
+    · <strong>人均消费</strong> = 消费金额 / 消费次数<br>
+    · <strong>消费等级</strong> = pd.qcut(消费金额, 5) → 1~5分<br>
+    · <strong>是否活跃</strong> = (最近登录 < 7天) → 0/1<br><br>
+    这些衍生特征比原始特征更能反映用户行为模式！
+    </div>
 </div>
 `
     },
@@ -16493,39 +16810,68 @@ p值<strong>不是</strong>「H0为真的概率」！p值是「在H0为真的前
         title: "模型评估",
         desc: "如何判断模型的好坏",
         content: `
-<div class="concept-card" style="background:linear-gradient(135deg,rgba(137,180,250,0.1),rgba(255,255,255,0.05));padding:20px;border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent)">
-<h3 style="margin:0 0 12px">✅ 模型评估</h3>
-<p style="line-height:1.8;color:var(--text-secondary)">模型评估是数据分析的最后一步，判断模型是否可用、效果如何。不同任务有不同的评估指标。</p>
+<div class="concept-hero cyan">
+    <div class="concept-hero-icon">✅</div>
+    <div><h3>核心概念：模型评估</h3><p>如何判断模型的好坏？</p></div>
 </div>
 
-<h4>📊 回归任务评估</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">指标</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">含义</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">判断标准</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">R²</td><td style="padding:8px;border:1px solid var(--border)">模型解释了多少变异</td><td style="padding:8px;border:1px solid var(--border)">>0.7 优秀, >0.5 可接受</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">MAE</td><td style="padding:8px;border:1px solid var(--border)">平均绝对误差</td><td style="padding:8px;border:1px solid var(--border)">越小越好，单位同Y</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">RMSE</td><td style="padding:8px;border:1px solid var(--border)">均方根误差</td><td style="padding:8px;border:1px solid var(--border)">越小越好，对大误差敏感</td></tr>
-</table>
-
-<h4>📊 分类任务评估</h4>
-<table class="data-table" style="width:100%;margin:10px 0;border-collapse:collapse">
-<tr style="background:var(--bg-tertiary)"><th style="padding:8px;text-align:left;border:1px solid var(--border)">指标</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">含义</th><th style="padding:8px;text-align:left;border:1px solid var(--border)">关注场景</th></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">准确率 (Accuracy)</td><td style="padding:8px;border:1px solid var(--border)">预测正确的比例</td><td style="padding:8px;border:1px solid var(--border)">类别均衡时</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">精确率 (Precision)</td><td style="padding:8px;border:1px solid var(--border)">预测为正的中有多少真正为正</td><td style="padding:8px;border:1px solid var(--border)">不能误判（如垃圾邮件）</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">召回率 (Recall)</td><td style="padding:8px;border:1px solid var(--border)">真正为正的有多少被找出来</td><td style="padding:8px;border:1px solid var(--border)">不能漏判（如疾病检测）</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">F1-Score</td><td style="padding:8px;border:1px solid var(--border)">精确率和召回率的调和平均</td><td style="padding:8px;border:1px solid var(--border)">类别不均衡时</td></tr>
-<tr><td style="padding:8px;border:1px solid var(--border)">AUC-ROC</td><td style="padding:8px;border:1px solid var(--border)">模型区分能力的综合指标</td><td style="padding:8px;border:1px solid var(--border)">0.5=随机, 1.0=完美</td></tr>
-</table>
-
-<h4>🔄 验证方法</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>训练集/测试集拆分</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">7:3 或 8:2 随机拆分，简单快速</span></div>
-<div style="background:var(--bg-tertiary);padding:12px;border-radius:8px"><strong>K折交叉验证</strong><br><span style="color:var(--text-secondary);font-size:0.9rem">数据分成K份，轮流做测试集，更稳健</span></div>
+<div class="concept-section">
+    <h4><i class="fas fa-book-open"></i> 详细说明</h4>
+    <p style="color:var(--text-secondary);line-height:1.8">模型评估是数据分析的最后一步。一个模型好不好，不能只看训练集的表现，必须用<strong>独立的测试集</strong>来评估。否则就像「考试时做原题」——分数虚高。</p>
 </div>
 
-<div style="background:rgba(255,193,7,0.1);padding:12px;border-radius:8px;margin:12px 0;border-left:4px solid var(--yellow)">
-<strong>⚠️ 过拟合的信号</strong><br>
-训练集 R²=0.99，测试集 R²=0.50 → 严重过拟合！<br>
-解决：增加数据、减少特征、正则化、交叉验证、早停法。
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 回归评估指标</h4>
+    <div class="concept-item">
+        <h5>1. R² (决定系数)</h5>
+        <div class="formula">R² = 1 - SS_res / SS_tot = 1 - Σ(yᵢ-ŷᵢ)² / Σ(yᵢ-ȳ)²</div>
+        <div class="desc">模型解释了多少数据变异。R²=0.8表示模型解释了80%的变化。>0.7优秀，>0.5可接受，<0.3需要改进。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. MAE (平均绝对误差)</h5>
+        <div class="formula">MAE = Σ|yᵢ - ŷᵢ| / n</div>
+        <div class="desc">预测值与真实值的平均差距。优点：直观、单位与Y相同。如MAE=50元，表示平均预测偏差50元。</div>
+    </div>
+    <div class="concept-item">
+        <h5>3. RMSE (均方根误差)</h5>
+        <div class="formula">RMSE = √[Σ(yᵢ - ŷᵢ)² / n]</div>
+        <div class="desc">对大误差更敏感（因为先平方再开方）。如果某些预测偏差很大，RMSE会比MAE大很多。</div>
+    </div>
+</div>
+
+<div class="concept-section">
+    <h4><i class="fas fa-list-ol"></i> 分类评估指标</h4>
+    <div class="concept-item">
+        <h5>1. 精确率 (Precision) 与 召回率 (Recall)</h5>
+        <div class="formula">Precision = TP / (TP + FP) → 预测为正的有多少真正为正<br>Recall = TP / (TP + FN) → 真正为正的有多少被找出来</div>
+        <div class="desc">垃圾邮件检测：高精确率（不能把正常邮件误判），疾病筛查：高召回率（不能漏掉病人）。</div>
+    </div>
+    <div class="concept-item">
+        <h5>2. F1-Score</h5>
+        <div class="formula">F1 = 2 × (Precision × Recall) / (Precision + Recall)</div>
+        <div class="desc">精确率和召回率的调和平均。类别不均衡时比准确率更有参考价值。</div>
+    </div>
+</div>
+
+<div class="concept-example">
+    <strong>💡 实际案例</strong>
+    <div class="desc">
+    销量预测模型评估：<br><br>
+    <strong>训练集</strong>：R² = 0.92, MAE = 20<br>
+    <strong>测试集</strong>：R² = 0.85, MAE = 35<br><br>
+    训练集和测试集差距不大 → <strong>没有过拟合</strong>，模型可用！<br><br>
+    如果训练集 R²=0.99，测试集 R²=0.50 → <strong>严重过拟合</strong>！<br>
+    解决：减少特征、增加数据、正则化、降低模型复杂度。
+    </div>
+</div>
+
+<div class="concept-tip">
+    <strong>🔧 验证方法</strong>
+    <div class="desc">
+    <strong>训练集/测试集拆分</strong>：7:3或8:2随机拆分，简单快速<br>
+    <strong>K折交叉验证</strong>：数据分成K份，轮流做测试集，结果更稳健<br>
+    <code>from sklearn.model_selection import cross_val_score<br>scores = cross_val_score(model, X, y, cv=5)<br>print(scores.mean())</code>
+    </div>
 </div>
 `
     },
