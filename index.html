@@ -1098,6 +1098,47 @@ body {
     50% { opacity: 0.4; }
 }
 
+/* Nav Sub-section Styles (project children) */
+.nav-sub-section {
+    margin: 2px 0;
+}
+.nav-sub-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px 8px 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    font-weight: 500;
+}
+.nav-sub-title:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+.nav-sub-title i {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+.nav-sub-section:not(.collapsed) .nav-sub-title i {
+    transform: rotate(90deg);
+}
+.nav-sub-items {
+    padding-left: 8px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+.nav-sub-section:not(.collapsed) .nav-sub-items {
+    max-height: 500px;
+}
+.nav-item-sub {
+    padding: 6px 12px 6px 24px !important;
+    font-size: 0.82rem !important;
+}
+
 /* Concept Card Styles */
 .concept-hero {
     background: linear-gradient(135deg, #667eea, #a18cd1);
@@ -15891,24 +15932,6 @@ const NAV_STRUCTURE = [
             { id: "concept-10", title: "3.10 模型评估", icon: "fa-check-double" },
         ]
     },
-    {
-        id: "section-tutorial",
-        title: "📋 项目教学",
-        icon: "fa-graduation-cap",
-        type: "section-header",
-        children: [
-            { id: "tut-1", title: "教学1: 数据预处理", icon: "fa-book-open" },
-            { id: "tut-2", title: "教学2: 统计与相关性", icon: "fa-book-open" },
-            { id: "tut-3", title: "教学3: 关联规则挖掘", icon: "fa-book-open" },
-            { id: "tut-4", title: "教学4: 聚类分析", icon: "fa-book-open" },
-            { id: "tut-5", title: "教学5: RFM用户分层", icon: "fa-book-open" },
-            { id: "tut-6", title: "教学6: 线性回归", icon: "fa-book-open" },
-            { id: "tut-7", title: "教学7: 随机森林", icon: "fa-book-open" },
-            { id: "tut-8", title: "教学8: 时间序列", icon: "fa-book-open" },
-            { id: "tut-9", title: "教学9: 异常检测", icon: "fa-book-open" },
-            { id: "tut-10", title: "教学10: 综合分析", icon: "fa-book-open" },
-        ]
-    },
     { id: "cheatsheet", title: "📖 函数速查手册", icon: "fa-book", type: "welcome" },
     { id: "playground", title: "🧪 独立练习编辑器", icon: "fa-flask", type: "welcome" },
     {
@@ -15917,16 +15940,36 @@ const NAV_STRUCTURE = [
         icon: "fa-code",
         type: "section-header",
         children: [
-            { id: "proj-1", title: "项目1: 数据预处理高阶版", icon: "fa-broom" },
-            { id: "proj-2", title: "项目2: 多维统计+相关性分析", icon: "fa-chart-pie" },
-            { id: "proj-3", title: "项目3: 购物车关联规则挖掘", icon: "fa-cart-shopping" },
-            { id: "proj-4", title: "项目4: KMeans聚类分析", icon: "fa-object-group" },
-            { id: "proj-5", title: "项目5: RFM模型用户分层", icon: "fa-users" },
-            { id: "proj-6", title: "项目6: 一元+多元线性回归", icon: "fa-chart-line" },
-            { id: "proj-7", title: "项目7: 随机森林回归", icon: "fa-tree" },
-            { id: "proj-8", title: "项目8: 时间序列分析", icon: "fa-clock" },
-            { id: "proj-9", title: "项目9: 综合异常检测", icon: "fa-triangle-exclamation" },
-            { id: "proj-10", title: "项目10: 全流程综合大项目", icon: "fa-trophy" },
+            { id: "proj-1", title: "项目1: 数据预处理高阶版", icon: "fa-broom", children: [
+                { id: "tut-1", title: "教学1: 数据预处理", icon: "fa-book-open" }
+            ]},
+            { id: "proj-2", title: "项目2: 多维统计+相关性分析", icon: "fa-chart-pie", children: [
+                { id: "tut-2", title: "教学2: 统计与相关性", icon: "fa-book-open" }
+            ]},
+            { id: "proj-3", title: "项目3: 购物车关联规则挖掘", icon: "fa-cart-shopping", children: [
+                { id: "tut-3", title: "教学3: 关联规则挖掘", icon: "fa-book-open" }
+            ]},
+            { id: "proj-4", title: "项目4: KMeans聚类分析", icon: "fa-object-group", children: [
+                { id: "tut-4", title: "教学4: 聚类分析", icon: "fa-book-open" }
+            ]},
+            { id: "proj-5", title: "项目5: RFM模型用户分层", icon: "fa-users", children: [
+                { id: "tut-5", title: "教学5: RFM用户分层", icon: "fa-book-open" }
+            ]},
+            { id: "proj-6", title: "项目6: 一元+多元线性回归", icon: "fa-chart-line", children: [
+                { id: "tut-6", title: "教学6: 线性回归", icon: "fa-book-open" }
+            ]},
+            { id: "proj-7", title: "项目7: 随机森林回归", icon: "fa-tree", children: [
+                { id: "tut-7", title: "教学7: 随机森林", icon: "fa-book-open" }
+            ]},
+            { id: "proj-8", title: "项目8: 时间序列分析", icon: "fa-clock", children: [
+                { id: "tut-8", title: "教学8: 时间序列", icon: "fa-book-open" }
+            ]},
+            { id: "proj-9", title: "项目9: 综合异常检测", icon: "fa-triangle-exclamation", children: [
+                { id: "tut-9", title: "教学9: 异常检测", icon: "fa-book-open" }
+            ]},
+            { id: "proj-10", title: "项目10: 全流程综合大项目", icon: "fa-trophy", children: [
+                { id: "tut-10", title: "教学10: 综合分析", icon: "fa-book-open" }
+            ]},
         ]
     }
 ];
@@ -19121,18 +19164,48 @@ function renderSidebar() {
 
         section.children.forEach(child => {
             const checked = completedItems[child.id] ? "checked" : "";
-            html += `<div class="nav-item ${currentPage === child.id ? 'active' : ''}" data-nav-id="${child.id}" onclick="navigateTo('${child.id}')">
-                <span class="check-icon ${checked}" onclick="event.stopPropagation(); toggleComplete('${child.id}')">
-                    ${completedItems[child.id] ? '<i class="fas fa-check"></i>' : ''}
-                </span>
-                <span class="nav-label">${child.title}</span>
-            </div>`;
+
+            if (child.children) {
+                // Two-level: project with tut children
+                const subIsCollapsed = localStorage.getItem("collapsed-" + child.id) === "true";
+                html += `<div class="nav-sub-section ${subIsCollapsed ? 'collapsed' : ''}" data-sub-section="${child.id}">
+                    <div class="nav-sub-title" onclick="toggleSubSection('${child.id}')">
+                        <span class="nav-label">${child.title}</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="nav-sub-items">`;
+                child.children.forEach(subChild => {
+                    const subChecked = completedItems[subChild.id] ? "checked" : "";
+                    html += `<div class="nav-item nav-item-sub ${currentPage === subChild.id ? 'active' : ''}" data-nav-id="${subChild.id}" onclick="navigateTo('${subChild.id}')">
+                        <span class="check-icon ${subChecked}" onclick="event.stopPropagation(); toggleComplete('${subChild.id}')">
+                            ${completedItems[subChild.id] ? '<i class="fas fa-check"></i>' : ''}
+                        </span>
+                        <span class="nav-label">${subChild.title}</span>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            } else {
+                html += `<div class="nav-item ${currentPage === child.id ? 'active' : ''}" data-nav-id="${child.id}" onclick="navigateTo('${child.id}')">
+                    <span class="check-icon ${checked}" onclick="event.stopPropagation(); toggleComplete('${child.id}')">
+                        ${completedItems[child.id] ? '<i class="fas fa-check"></i>' : ''}
+                    </span>
+                    <span class="nav-label">${child.title}</span>
+                </div>`;
+            }
         });
 
         html += `</div></div>`;
     });
 
     nav.innerHTML = html;
+}
+
+function toggleSubSection(subId) {
+    const el = document.querySelector(`[data-sub-section="${subId}"]`);
+    if (el) {
+        el.classList.toggle("collapsed");
+        localStorage.setItem("collapsed-" + subId, el.classList.contains("collapsed"));
+    }
 }
 
 function toggleSection(sectionId) {
@@ -19166,46 +19239,57 @@ function handleSearch(query) {
     const nav = document.getElementById("sidebarNav");
 
     if (!q) {
-        // Clear search: show everything
-        nav.querySelectorAll(".nav-item, .nav-section").forEach(el => el.style.display = "");
+        nav.querySelectorAll(".nav-item, .nav-section, .nav-sub-section").forEach(el => el.style.display = "");
         return;
     }
 
-    // Hide all sections first
-    nav.querySelectorAll(".nav-section").forEach(section => {
-        section.style.display = "none";
-    });
+    nav.querySelectorAll(".nav-section").forEach(section => section.style.display = "none");
+    nav.querySelectorAll(".nav-sub-section").forEach(sub => sub.style.display = "none");
+    nav.querySelectorAll(".nav-item").forEach(item => item.style.display = "none");
 
-    // Show welcome-type items that match
     nav.querySelectorAll(".nav-item:not([data-nav-id])").forEach(item => {
         const label = item.querySelector(".nav-label");
-        if (label && label.textContent.toLowerCase().includes(q)) {
-            item.style.display = "flex";
-        } else {
-            item.style.display = "none";
-        }
+        item.style.display = (label && label.textContent.toLowerCase().includes(q)) ? "flex" : "none";
     });
 
-    // For each section, check if any child matches
     nav.querySelectorAll(".nav-section").forEach(section => {
         const sectionTitle = section.querySelector(".nav-section-title span");
         const sectionText = sectionTitle ? sectionTitle.textContent.toLowerCase() : "";
         const items = section.querySelectorAll(".nav-item[data-nav-id]");
+        const subSections = section.querySelectorAll(".nav-sub-section");
         let hasMatch = sectionText.includes(q);
+
+        subSections.forEach(sub => {
+            const subTitle = sub.querySelector(".nav-sub-title .nav-label");
+            const subText = subTitle ? subTitle.textContent.toLowerCase() : "";
+            const subItems = sub.querySelectorAll(".nav-item[data-nav-id]");
+            let subHasMatch = subText.includes(q);
+
+            subItems.forEach(item => {
+                const label = item.querySelector(".nav-label");
+                if (label && label.textContent.toLowerCase().includes(q)) {
+                    item.style.display = "flex";
+                    subHasMatch = true;
+                }
+            });
+
+            if (subHasMatch) {
+                sub.style.display = "";
+                sub.classList.remove("collapsed");
+                hasMatch = true;
+            }
+        });
 
         items.forEach(item => {
             const label = item.querySelector(".nav-label");
             if (label && label.textContent.toLowerCase().includes(q)) {
                 item.style.display = "flex";
                 hasMatch = true;
-            } else {
-                item.style.display = "none";
             }
         });
 
         if (hasMatch) {
             section.style.display = "";
-            // Auto-expand matching section
             section.classList.remove("collapsed");
         }
     });
