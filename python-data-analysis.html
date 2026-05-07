@@ -20330,9 +20330,6 @@ async function ensurePackages(projId) {
     const toLoad = needed.filter(p => !loadedPackages.has(p));
     if (toLoad.length === 0) return;
 
-    const outputEl = document.getElementById(`output-${projId}`);
-    outputEl.innerHTML = `<span style="color:var(--yellow)"><i class="fas fa-spinner fa-spin"></i> 正在加载额外依赖: ${toLoad.join(", ")}...</span>`;
-
     // Built-in packages use loadPackage, others use micropip
     const builtinPkgs = toLoad.filter(p => ["numpy","pandas","matplotlib","scipy","scikit-learn","micropip"].includes(p));
     const pypiPkgs = toLoad.filter(p => !builtinPkgs.includes(p));
