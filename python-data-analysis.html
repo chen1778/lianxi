@@ -19806,6 +19806,14 @@ function renderProject(area, projId) {
 
     // Initialize CodeMirror
     setTimeout(() => initCodeEditor(projId), 50);
+
+    // Load teaching content immediately (default active tab)
+    const tutId = "tut-" + projId.split("-")[1];
+    if (SECTION_CONTENT[tutId]) {
+        const teachingArea = document.getElementById("teaching-content-" + projId);
+        const sc = SECTION_CONTENT[tutId];
+        teachingArea.innerHTML = '<div class="teaching-wrapper">' + sc.content + '</div>';
+    }
 }
 
 function switchTab(projId, tab, btn) {
