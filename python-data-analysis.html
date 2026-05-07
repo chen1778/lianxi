@@ -1098,7 +1098,71 @@ body {
     50% { opacity: 0.4; }
 }
 
-/* Nav Sub-section Styles (project children) */
+/* Teaching content in project tab */
+            .teaching-wrapper {
+                padding: 0;
+            }
+            .teaching-wrapper h3 {
+                color: var(--accent);
+                font-size: 1.1rem;
+                margin: 24px 0 12px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid var(--border);
+            }
+            .teaching-wrapper h3:first-child {
+                margin-top: 0;
+            }
+            .teaching-wrapper h4 {
+                color: var(--text-primary);
+                font-size: 1rem;
+                margin: 16px 0 8px;
+            }
+            .teaching-wrapper p {
+                line-height: 1.8;
+                color: var(--text-secondary);
+                margin: 8px 0;
+            }
+            .teaching-wrapper ul, .teaching-wrapper ol {
+                line-height: 2;
+                color: var(--text-secondary);
+                padding-left: 24px;
+            }
+            .teaching-wrapper li {
+                margin: 4px 0;
+            }
+            .teaching-wrapper pre {
+                background: var(--bg-tertiary);
+                border-radius: 8px;
+                padding: 12px;
+                overflow-x: auto;
+                margin: 12px 0;
+            }
+            .teaching-wrapper code {
+                font-family: 'Fira Code', 'Courier New', monospace;
+                font-size: 0.85rem;
+                color: var(--accent);
+            }
+            .teaching-wrapper .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 10px 0;
+                font-size: 0.9rem;
+            }
+            .teaching-wrapper .data-table th {
+                background: var(--bg-tertiary);
+                padding: 10px 12px;
+                text-align: left;
+                border: 1px solid var(--border);
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+            .teaching-wrapper .data-table td {
+                padding: 8px 12px;
+                border: 1px solid var(--border);
+                color: var(--text-secondary);
+            }
+
+            /* Nav Sub-section Styles (project children) */
 .nav-sub-section {
     margin: 2px 0;
 }
@@ -19821,7 +19885,7 @@ function switchTab(projId, tab, btn) {
         if (SECTION_CONTENT[tutId]) {
             const teachingArea = document.getElementById("teaching-content-" + projId);
             const sc = SECTION_CONTENT[tutId];
-            teachingArea.innerHTML = sc.content;
+            teachingArea.innerHTML = '<div class="teaching-wrapper">' + sc.content + '</div>';
         }
     }
 }
