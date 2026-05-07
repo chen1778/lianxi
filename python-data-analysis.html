@@ -20330,19 +20330,20 @@ async function ensurePackages(projId) {
     const toLoad = needed.filter(p => !loadedPackages.has(p));
     if (toLoad.length === 0) return;
 
-    // Built-in packages use loadPackage, others use micropip
     const builtinPkgs = toLoad.filter(p => ["numpy","pandas","matplotlib","scipy","scikit-learn","micropip"].includes(p));
     const pypiPkgs = toLoad.filter(p => !builtinPkgs.includes(p));
 
     if (builtinPkgs.length > 0) {
-        await pyodide.loadPackage(builtinPkgs);
+        try { await pyodide.loadPackage(builtinPkgs); } catch(e) {}
     }
+
     if (pypiPkgs.length > 0) {
-        await pyodide.loadPackage("micropip");
-        await pyodide.runPythonAsync(`
-import micropip
-await micropip.install([${pypiPkgs.map(p => `"${p}"`).join(", ")}])
-        `);
+        try {
+            await pyodide.loadPackage("micropip");
+            for (const pkg of pypiPkgs) {
+                await pyodide.runPythonAsync(`import micropip; await micropip.install("${pkg}")`);
+            }
+        } catch(e) {}
     }
     toLoad.forEach(p => loadedPackages.add(p));
 }
