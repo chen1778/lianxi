@@ -19831,6 +19831,11 @@ function switchTab(projId, tab, btn) {
             teachingArea.innerHTML = '<div class="teaching-wrapper">' + sc.content + '</div>';
         }
     }
+
+    // Initialize full code editor when switching to fullcode tab
+    if (tab === "fullcode") {
+        setTimeout(() => getFullCodeEditor(projId), 50);
+    }
 }
 
 function switchTabByName(projId, tab) {
