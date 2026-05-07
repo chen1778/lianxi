@@ -19402,6 +19402,8 @@ async function runPlaygroundCode() {
 
         await pyodide.runPythonAsync(`
 import base64, io, sys
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 try:
@@ -19794,6 +19796,8 @@ async function runGuidedStep(projId, stepIdx) {
 
         await pyodide.runPythonAsync(`
 import base64, io, sys
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 try:
@@ -19941,6 +19945,8 @@ async function runFullCode(projId) {
 
         await pyodide.runPythonAsync(`
 import base64, io, sys
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 try:
@@ -20125,6 +20131,44 @@ await micropip.install("openpyxl")
         loadingProgress.style.width = "100%";
         loadingText.textContent = "加载完成！";
 
+        // Configure matplotlib Chinese font
+        try {
+            await pyodide.runPythonAsync(`
+import matplotlib
+import matplotlib.pyplot as plt
+import urllib.request, io, os, zipfile
+
+# Download Noto Sans SC font
+font_url = "https://github.com/google/fonts/raw/main/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf"
+font_dir = "/tmp/fonts"
+os.makedirs(font_dir, exist_ok=True)
+font_path = os.path.join(font_dir, "NotoSansSC.ttf")
+
+if not os.path.exists(font_path):
+    try:
+        urllib.request.urlretrieve(font_url, font_path)
+    except Exception:
+        # Fallback: use DejaVu with warnings suppressed
+        matplotlib.rcParams['axes.unicode_minus'] = False
+        raise Exception("Font download failed")
+
+from matplotlib import font_manager
+font_manager.fontManager.addfont(font_path)
+prop = font_manager.FontProperties(fname=font_path)
+matplotlib.rcParams['font.family'] = prop.get_name()
+matplotlib.rcParams['axes.unicode_minus'] = False
+plt.rcParams['font.sans-serif'] = [prop.get_name()]
+            `);
+        } catch (e) {
+            console.warn("Font setup failed, Chinese labels may not render:", e);
+            try {
+                await pyodide.runPythonAsync(`
+import matplotlib
+matplotlib.rcParams['axes.unicode_minus'] = False
+                `);
+            } catch(e2) {}
+        }
+
         pyodideReady = true;
         loadedPackages.add("numpy"); loadedPackages.add("pandas");
         loadedPackages.add("matplotlib"); loadedPackages.add("scipy");
@@ -20237,6 +20281,8 @@ async function runProjectCode(projId) {
 
             result = await pyodide.runPythonAsync(`
 import base64, io, sys
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 try:
