@@ -20168,12 +20168,12 @@ const PROJECT_PACKAGES = {
     "proj-2": ["numpy", "pandas", "matplotlib", "scipy"],
     "proj-3": ["numpy", "pandas", "mlxtend"],
     "proj-4": ["numpy", "pandas", "matplotlib", "scikit-learn", "scipy"],
-    "proj-5": ["numpy", "pandas"],
+    "proj-5": ["numpy", "pandas", "scipy"],
     "proj-6": ["numpy", "pandas", "scikit-learn", "scipy"],
     "proj-7": ["numpy", "pandas", "matplotlib", "scikit-learn", "scipy"],
-    "proj-8": ["numpy", "pandas", "matplotlib", "scipy"],
+    "proj-8": ["numpy", "pandas", "matplotlib", "scipy", "statsmodels"],
     "proj-9": ["numpy", "pandas", "matplotlib", "scikit-learn", "scipy"],
-    "proj-10": ["numpy", "pandas", "matplotlib", "scikit-learn", "scipy", "mlxtend"],
+    "proj-10": ["numpy", "pandas", "matplotlib", "scikit-learn", "scipy", "mlxtend", "statsmodels"],
 };
 
 async function initPyodide(showOverlay = false) {
@@ -20331,7 +20331,7 @@ async function ensurePackages(projId) {
     if (toLoad.length === 0) return;
 
     // Built-in packages use loadPackage, others use micropip
-    const builtinPkgs = toLoad.filter(p => ["numpy","pandas","matplotlib","scipy","scikit-learn","micropip"].includes(p));
+    const builtinPkgs = toLoad.filter(p => ["numpy","pandas","matplotlib","scipy","scikit-learn","statsmodels","micropip"].includes(p));
     const pypiPkgs = toLoad.filter(p => !builtinPkgs.includes(p));
 
     if (builtinPkgs.length > 0) {
