@@ -19631,7 +19631,10 @@ function renderProject(area, projId) {
         <!-- Tabs -->
         <div class="tab-container">
             <div class="tab-buttons">
-                <button class="tab-btn active" onclick="switchTab('${projId}', 'requirements', this)">
+                <button class="tab-btn active" onclick="switchTab('${projId}', 'teaching', this)" id="tab-btn-teaching-${projId}">
+                    <i class="fas fa-graduation-cap"></i> 项目教学
+                </button>
+                <button class="tab-btn" onclick="switchTab('${projId}', 'requirements', this)">
                     <i class="fas fa-clipboard-list"></i> 项目要求
                 </button>
                 <button class="tab-btn" onclick="switchTab('${projId}', 'exercise', this)">
@@ -19645,8 +19648,13 @@ function renderProject(area, projId) {
                 </button>
             </div>
 
+            <!-- Teaching Tab -->
+            <div class="tab-panel active" id="tab-teaching-${projId}">
+                <div id="teaching-content-${projId}"></div>
+            </div>
+
             <!-- Requirements Tab -->
-            <div class="tab-panel active" id="tab-requirements-${projId}">
+            <div class="tab-panel" id="tab-requirements-${projId}">
                 ${proj.tasks ? `
                 <div class="exercise-card" style="margin-bottom:20px">
                     <h3><i class="fas fa-list-check" style="color:var(--accent);margin-right:8px"></i>任务要求</h3>
@@ -19806,6 +19814,16 @@ function switchTab(projId, tab, btn) {
     document.getElementById(`tab-${tab}-${projId}`).classList.add("active");
     btn.parentElement.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
+
+    // Load teaching content when first switching to teaching tab
+    if (tab === "teaching" && document.getElementById("teaching-content-" + projId).innerHTML === "") {
+        const tutId = "tut-" + projId.split("-")[1];
+        if (SECTION_CONTENT[tutId]) {
+            const teachingArea = document.getElementById("teaching-content-" + projId);
+            const sc = SECTION_CONTENT[tutId];
+            teachingArea.innerHTML = sc.content;
+        }
+    }
 }
 
 function switchTabByName(projId, tab) {
