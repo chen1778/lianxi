@@ -19904,6 +19904,8 @@ async function runGuidedStep(projId, stepIdx) {
             return;
         }
 
+        await ensurePackages(projId);
+
         let capturedOutput = "";
         pyodide.setStdout({ batched: (msg) => { capturedOutput += msg + "\n"; } });
         pyodide.setStderr({ batched: (msg) => { capturedOutput += "[STDERR] " + msg + "\n"; } });
