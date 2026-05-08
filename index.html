@@ -20260,14 +20260,19 @@ import numpy as np
 from itertools import combinations
 
 def _join_itemsets(prev_itemsets):
-    """Generate k-itemsets by joining (k-1)-itemsets that share first (k-2) items."""
+    """Generate k-itemsets by joining (k-1)-itemsets that share k-2 items."""
     result = set()
-    prev_list = sorted(prev_itemsets)
+    prev_list = list(prev_itemsets)
     for i in range(len(prev_list)):
         for j in range(i + 1, len(prev_list)):
             a, b = prev_list[i], prev_list[j]
-            if a[:-1] == b[:-1] and a[-1] != b[-1]:
+            # Join if they share all but one element
+            if len(a) == 1:
                 result.add(a | b)
+            else:
+                common = a & b
+                if len(common) == len(a) - 1:
+                    result.add(a | b)
     return result
 
 def _get_support(itemset, df):
