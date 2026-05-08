@@ -20055,6 +20055,8 @@ async function runFullCode(projId) {
             return;
         }
 
+        await ensurePackages(projId);
+
         let capturedOutput = "";
         pyodide.setStdout({ batched: (msg) => { capturedOutput += msg + "\n"; } });
         pyodide.setStderr({ batched: (msg) => { capturedOutput += "[STDERR] " + msg + "\n"; } });
@@ -20327,25 +20329,31 @@ matplotlib.rcParams['axes.unicode_minus'] = False
 // Load extra packages on demand (e.g., mlxtend for project 3)
 async function ensurePackages(projId) {
     const needed = PROJECT_PACKAGES[projId] || [];
-    const toLoad = needed.filter(p => !loadedPackages.has(p));
-    if (toLoad.length === 0) return;
+    const builtinPkgs = needed.filter(p => ["numpy","pandas","matplotlib","scipy","scikit-learn","statsmodels","micropip"].includes(p));
+    const pypiPkgs = needed.filter(p => !builtinPkgs.includes(p));
 
-    const builtinPkgs = toLoad.filter(p => ["numpy","pandas","matplotlib","scipy","scikit-learn","statsmodels","micropip"].includes(p));
-    const pypiPkgs = toLoad.filter(p => !builtinPkgs.includes(p));
-
-    if (builtinPkgs.length > 0) {
-        try { await pyodide.loadPackage(builtinPkgs); } catch(e) {}
+    for (const pkg of builtinPkgs) {
+        if (!loadedPackages.has(pkg)) {
+            try {
+                await pyodide.loadPackage(pkg);
+                loadedPackages.add(pkg);
+            } catch(e) {}
+        }
     }
 
     if (pypiPkgs.length > 0) {
         try {
             await pyodide.loadPackage("micropip");
             for (const pkg of pypiPkgs) {
-                await pyodide.runPythonAsync(`import micropip; await micropip.install("${pkg}")`);
+                if (!loadedPackages.has(pkg)) {
+                    try {
+                        await pyodide.runPythonAsync(`import micropip; await micropip.install("${pkg}")`);
+                        loadedPackages.add(pkg);
+                    } catch(e) {}
+                }
             }
         } catch(e) {}
     }
-    toLoad.forEach(p => loadedPackages.add(p));
 }
 
 async function runProjectCode(projId) {
