@@ -20318,17 +20318,19 @@ def apriori(df, min_support=0.5, use_colnames=False):
     # Build DataFrame
     rows = []
     for itemset, cnt in all_freq.items():
-        if use_colnames:
-            rows.append({"itemsets": itemset, "support": cnt / n})
-        else:
-            rows.append({"itemsets": list(itemset), "support": cnt / n})
+        rows.append({"itemsets": itemset, "support": cnt / n})
     return pd.DataFrame(rows)
 
 def association_rules(df, metric="confidence", min_threshold=0.8):
+    cols = ["antecedents","consequents","antecedent support","consequent support",
+            "support","confidence","lift","leverage","conviction"]
     if df.empty:
-        return pd.DataFrame(columns=["antecedents","consequents","antecedent support",
-                                      "consequent support","support","confidence","lift"])
-    freq_dict = {row["itemsets"]: row["support"] for _, row in df.iterrows()}
+        return pd.DataFrame(columns=cols)
+    freq_dict = {}
+    for idx in range(len(df)):
+        key = df.iloc[idx]["itemsets"]
+        val = df.iloc[idx]["support"]
+        freq_dict[key] = val
     rules = []
     for itemset, support_union in freq_dict.items():
         if len(itemset) < 2:
@@ -20344,7 +20346,7 @@ def association_rules(df, metric="confidence", min_threshold=0.8):
                 if support_ante == 0:
                     continue
                 conf = support_union / support_ante
-                lift = conf / support_conse if support_conse > 0 else 0
+                lift_val = conf / support_conse if support_conse > 0 else 0
                 leverage = support_union - support_ante * support_conse
                 conviction = (1 - support_conse) / (1 - conf) if conf < 1 else float('inf')
                 rules.append({
@@ -20354,7 +20356,7 @@ def association_rules(df, metric="confidence", min_threshold=0.8):
                     "consequent support": support_conse,
                     "support": support_union,
                     "confidence": conf,
-                    "lift": lift,
+                    "lift": lift_val,
                     "leverage": leverage,
                     "conviction": conviction,
                 })
