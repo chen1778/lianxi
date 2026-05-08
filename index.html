@@ -20232,13 +20232,13 @@ with open("${filename}", "w", encoding="utf-8") as f:
         loadingProgress.style.width = "90%";
         loadingText.textContent = "正在预装扩展库...";
 
-        // Pre-install mlxtend, statsmodels and openpyxl in background
+        // Pre-install statsmodels and openpyxl in background
         try {
             await pyodide.loadPackage("micropip");
             const installResult = await pyodide.runPythonAsync(`
 import micropip
 installed = []
-for pkg in ["mlxtend", "statsmodels", "openpyxl"]:
+for pkg in ["statsmodels", "openpyxl"]:
     try:
         await micropip.install(pkg)
         installed.append(pkg)
@@ -20252,6 +20252,128 @@ for pkg in ["mlxtend", "statsmodels", "openpyxl"]:
         } catch (e) {
             console.warn("Pre-install failed, will retry on demand:", e);
         }
+
+        // Inject pure-Python mlxtend stub (apriori + association_rules)
+        pyodide.runPython(`
+import pandas as pd
+import numpy as np
+from itertools import combinations
+from collections import Counter
+
+def _apriori_gen(prev_itemsets):
+    result = set()
+    prev_list = list(prev_itemsets)
+    for i in range(len(prev_list)):
+        for j in range(i+1, len(prev_list)):
+            a, b = prev_list[i], prev_list[j]
+            union = a | b
+            if len(union) == len(a) + 1:
+                result.add(union)
+    return result
+
+def apriori(df, min_support=0.5, use_colnames=False):
+    cols = list(df.columns)
+    n = len(df)
+    items = {}
+    for col in cols:
+        for val in df[col].unique():
+            if val == 1 or val is True or val == True:
+                items[frozenset([col])] = items.get(frozenset([col]), 0) + int((df[col] == val).sum())
+            elif val != 0 and val is not False and val != False:
+                key = frozenset([col + '=' + str(val)])
+                items[key] = items.get(key, 0) + int((df[col] == val).sum())
+    # For one-hot encoded data (0/1), just use column presence
+    one_hot = all(set(df[c].dropna().unique()).issubset({0,1,True,False}) for c in cols)
+    if one_hot:
+        items = {}
+        for col in cols:
+            cnt = int(df[col].sum())
+            if cnt > 0:
+                items[frozenset([col])] = cnt
+
+    freq = {k: v for k, v in items.items() if v / n >= min_support}
+    all_freq = dict(freq)
+    k = 2
+    while True:
+        candidates = _apriori_gen(freq.keys())
+        if not candidates:
+            break
+        new_freq = {}
+        for itemset in candidates:
+            mask = pd.Series(True, index=df.index)
+            for item in itemset:
+                if item in cols:
+                    mask &= (df[item] == 1)
+                else:
+                    col, val = item.split('=', 1)
+                    mask &= (df[col] == val)
+            cnt = int(mask.sum())
+            if cnt / n >= min_support:
+                new_freq[itemset] = cnt
+        if not new_freq:
+            break
+        all_freq.update(new_freq)
+        freq = new_freq
+        k += 1
+
+    result_list = []
+    for itemset, support_count in all_freq.items():
+        result_list.append({"itemsets": itemset, "support": support_count / n})
+    result_df = pd.DataFrame(result_list)
+    if use_colnames and not result_df.empty:
+        result_df["itemsets"] = result_df["itemsets"].apply(lambda x: frozenset(x))
+    return result_df
+
+def association_rules(df, metric="confidence", min_threshold=0.8):
+    freq = df
+    rules = []
+    n_rules = len(freq)
+    for i in range(n_rules):
+        for j in range(n_rules):
+            if i == j:
+                continue
+            ant = freq.iloc[i]["itemsets"]
+            con = freq.iloc[j]["itemsets"]
+            if ant & con:
+                continue
+            union = ant | con
+            union_row = freq[freq["itemsets"].apply(lambda x: x == union)]
+            if union_row.empty:
+                continue
+            support_union = union_row.iloc[0]["support"]
+            support_ant = freq.iloc[i]["support"]
+            support_con = freq.iloc[j]["support"]
+            confidence = support_union / support_ant if support_ant > 0 else 0
+            lift = confidence / support_con if support_con > 0 else 0
+            leverage = support_union - support_ant * support_con
+            conviction = (1 - support_con) / (1 - confidence) if confidence < 1 else float('inf')
+            rules.append({
+                "antecedents": frozenset(ant),
+                "consequents": frozenset(con),
+                "antecedent support": support_ant,
+                "consequent support": support_con,
+                "support": support_union,
+                "confidence": confidence,
+                "lift": lift,
+                "leverage": leverage,
+                "conviction": conviction,
+            })
+    result = pd.DataFrame(rules)
+    if not result.empty:
+        result = result[result[metric] >= min_threshold]
+    return result
+
+import types
+mlxtend = types.ModuleType('mlxtend')
+frequent_patterns = types.ModuleType('frequent_patterns')
+frequent_patterns.apriori = apriori
+frequent_patterns.association_rules = association_rules
+mlxtend.frequent_patterns = frequent_patterns
+import sys
+sys.modules['mlxtend'] = mlxtend
+sys.modules['mlxtend.frequent_patterns'] = frequent_patterns
+        `);
+        loadedPackages.add("mlxtend");
 
         loadingProgress.style.width = "100%";
         loadingText.textContent = "加载完成！";
