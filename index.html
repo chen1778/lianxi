@@ -20232,15 +20232,19 @@ with open("${filename}", "w", encoding="utf-8") as f:
         loadingProgress.style.width = "90%";
         loadingText.textContent = "正在预装扩展库...";
 
-        // Pre-install mlxtend and openpyxl in background
+        // Pre-install mlxtend, statsmodels and openpyxl in background
         try {
             await pyodide.loadPackage("micropip");
             await pyodide.runPythonAsync(`
 import micropip
-await micropip.install("mlxtend")
-await micropip.install("openpyxl")
+for pkg in ["mlxtend", "statsmodels", "openpyxl"]:
+    try:
+        await micropip.install(pkg)
+    except Exception:
+        pass
             `);
             loadedPackages.add("mlxtend");
+            loadedPackages.add("statsmodels");
             loadedPackages.add("openpyxl");
         } catch (e) {
             console.warn("Pre-install failed, will retry on demand:", e);
@@ -20346,10 +20350,16 @@ async function ensurePackages(projId) {
             await pyodide.loadPackage("micropip");
             for (const pkg of pypiPkgs) {
                 if (!loadedPackages.has(pkg)) {
+                    // Try micropip first, then loadPackage as fallback
                     try {
                         await pyodide.runPythonAsync(`import micropip; await micropip.install("${pkg}")`);
                         loadedPackages.add(pkg);
-                    } catch(e) {}
+                    } catch(e1) {
+                        try {
+                            await pyodide.loadPackage(pkg);
+                            loadedPackages.add(pkg);
+                        } catch(e2) {}
+                    }
                 }
             }
         } catch(e) {}
