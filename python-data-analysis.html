@@ -20259,85 +20259,66 @@ import pandas as pd
 import numpy as np
 from itertools import combinations
 
-def _join_itemsets(prev_itemsets):
-    """Generate k-itemsets by joining (k-1)-itemsets that share k-2 items."""
-    result = set()
-    prev_list = list(prev_itemsets)
-    for i in range(len(prev_list)):
-        for j in range(i + 1, len(prev_list)):
-            a, b = prev_list[i], prev_list[j]
-            # Join if they share all but one element
-            if len(a) == 1:
-                result.add(a | b)
-            else:
-                common = a & b
-                if len(common) == len(a) - 1:
-                    result.add(a | b)
-    return result
-
-def _get_support(itemset, df):
-    """Count how many rows in df contain all items in itemset."""
-    if not itemset:
-        return 0.0
-    items = list(itemset)
-    if all(it in df.columns for it in items):
-        mask = pd.Series(True, index=df.index)
-        for it in items:
-            mask &= (df[it] == 1)
-        return float(mask.sum()) / len(df)
-    return 0.0
-
 def apriori(df, min_support=0.5, use_colnames=False):
-    cols = list(df.columns)
+    """Simple Apriori implementation for one-hot encoded data."""
     n = len(df)
-    # Count single items (columns that are 1 in at least one row)
-    items = {}
+    cols = list(df.columns)
+    # Find frequent 1-itemsets
+    freq = {}
     for col in cols:
-        cnt = int(df[col].sum())
-        if cnt > 0:
-            items[frozenset([col])] = cnt
-    # Filter by min_support
-    freq = {k: v for k, v in items.items() if v >= n * min_support}
+        support = df[col].mean()
+        if support >= min_support:
+            freq[frozenset([col])] = support
     all_freq = dict(freq)
-    # Generate k-itemsets
+    # Find frequent k-itemsets (k >= 2)
     k = 2
     while True:
-        candidates = _join_itemsets(freq.keys())
+        candidates = set()
+        items = list(freq.keys())
+        for i in range(len(items)):
+            for j in range(i + 1, len(items)):
+                union = items[i] | items[j]
+                if len(union) == k:
+                    candidates.add(union)
         if not candidates:
             break
         new_freq = {}
         for itemset in candidates:
-            cnt = int(_get_support(itemset, df) * n)
-            if cnt >= n * min_support:
-                new_freq[itemset] = cnt
+            mask = pd.Series(True, index=df.index)
+            for item in itemset:
+                mask &= (df[item] == 1)
+            support = mask.mean()
+            if support >= min_support:
+                new_freq[itemset] = support
         if not new_freq:
             break
         all_freq.update(new_freq)
         freq = new_freq
         k += 1
-    # Build DataFrame
-    rows = []
-    for itemset, cnt in all_freq.items():
-        rows.append({"itemsets": itemset, "support": cnt / n})
+    # Build result DataFrame
+    rows = [{"itemsets": k, "support": v} for k, v in all_freq.items()]
     return pd.DataFrame(rows)
 
 def association_rules(df, metric="confidence", min_threshold=0.8):
+    """Generate association rules from frequent itemsets."""
     cols = ["antecedents","consequents","antecedent support","consequent support",
             "support","confidence","lift","leverage","conviction"]
-    if df.empty:
+    if df.empty or len(df) == 0:
         return pd.DataFrame(columns=cols)
+    # Build lookup dict
     freq_dict = {}
-    for idx in range(len(df)):
-        key = df.iloc[idx]["itemsets"]
-        val = df.iloc[idx]["support"]
-        freq_dict[key] = val
+    for i in range(len(df)):
+        row = df.iloc[i]
+        freq_dict[row["itemsets"]] = row["support"]
     rules = []
     for itemset, support_union in freq_dict.items():
         if len(itemset) < 2:
             continue
-        for r in range(1, len(itemset)):
-            for ante in combinations(sorted(itemset), r):
-                ante = frozenset(ante)
+        # Generate all non-empty proper subsets as antecedents
+        items = list(itemset)
+        for r in range(1, len(items)):
+            for ante_items in combinations(items, r):
+                ante = frozenset(ante_items)
                 conse = itemset - ante
                 if not conse:
                     continue
@@ -20346,7 +20327,7 @@ def association_rules(df, metric="confidence", min_threshold=0.8):
                 if support_ante == 0:
                     continue
                 conf = support_union / support_ante
-                lift_val = conf / support_conse if support_conse > 0 else 0
+                lift_val = conf / support_conse if support_conse > 0 else float('inf')
                 leverage = support_union - support_ante * support_conse
                 conviction = (1 - support_conse) / (1 - conf) if conf < 1 else float('inf')
                 rules.append({
@@ -20360,7 +20341,7 @@ def association_rules(df, metric="confidence", min_threshold=0.8):
                     "leverage": leverage,
                     "conviction": conviction,
                 })
-    result = pd.DataFrame(rules)
+    result = pd.DataFrame(rules, columns=cols) if rules else pd.DataFrame(columns=cols)
     if not result.empty:
         result = result[result[metric] >= min_threshold]
     return result
