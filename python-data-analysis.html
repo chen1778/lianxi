@@ -18208,9 +18208,12 @@ print(frequent_itemsets.head(10))`
                 answer: `from mlxtend.frequent_patterns import association_rules
 
 rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.7)
-valid_rules = rules[rules["lift"] > 1].sort_values("lift", ascending=False)
-print(f"有效关联规则数量: {len(valid_rules)}")
-print(valid_rules[["antecedents", "consequents", "support", "confidence", "lift"]].head(10))`
+if not rules.empty and "lift" in rules.columns:
+    valid_rules = rules[rules["lift"] > 1].sort_values("lift", ascending=False)
+    print(f"有效关联规则数量: {len(valid_rules)}")
+    print(valid_rules[["antecedents", "consequents", "support", "confidence", "lift"]].head(10))
+else:
+    print("未找到有效关联规则")`
             }
         ],
     },
@@ -19088,10 +19091,13 @@ cart_encoded = pd.get_dummies(df_cart["商品名称"], prefix="商品")
 basket = cart_encoded.groupby(df_cart["订单ID"]).max()
 freq = apriori(basket, min_support=0.05, use_colnames=True)
 rules = association_rules(freq, metric="confidence", min_threshold=0.7)
-valid = rules[rules["lift"] > 1].sort_values("lift", ascending=False)
-print(f"\\n有效关联规则: {len(valid)} 条")
-if len(valid) > 0:
-    print(valid[["antecedents","consequents","lift"]].head(5))`
+if not rules.empty and "lift" in rules.columns:
+    valid = rules[rules["lift"] > 1].sort_values("lift", ascending=False)
+    print(f"\\n有效关联规则: {len(valid)} 条")
+    if len(valid) > 0:
+        print(valid[["antecedents","consequents","lift"]].head(5))
+else:
+    print("\\n未找到有效关联规则")`
             },
             {
                 title: "可视化与结论输出",
