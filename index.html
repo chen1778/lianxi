@@ -796,6 +796,44 @@ body {
     border-style: solid;
 }
 
+.exercise-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.exercise-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.exercise-option:hover {
+    border-color: var(--accent);
+    background: var(--bg-tertiary);
+}
+
+.exercise-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.exercise-option span {
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
 .exercise-actions {
     display: flex;
     gap: 8px;
@@ -17806,30 +17844,36 @@ print(df.head())
         exercises: [
             {
                 desc: "用中位数填充消费金额缺失值",
-                code: 'df["消费金额"].fillna(<input class="blank-input" id="ex1-1" placeholder="填写答案">, inplace=True)',
-                answer: 'df["消费金额"].median()',
-                alternatives: ['df["消费金额"].median()', 'median()', "df['消费金额'].median()"],
-                hint: "使用 DataFrame 的 median() 方法获取中位数",
-                checkFn: (val) => {
-                    const v = val.trim().toLowerCase().replace(/['"\u201c\u201d]/g, '');
-                    return v.includes("median()");
-                }
+                options: [
+                    "df['消费金额'].mean()",
+                    "df['消费金额'].median()",
+                    "df['消费金额'].mode()",
+                    "df['消费金额'].std()"
+                ],
+                correctIndex: 1,
+                hint: "使用 DataFrame 的 median() 方法获取中位数"
             },
             {
                 desc: "用3σ原则识别消费金额的异常值（上界）",
-                code: `mean = df["消费金额"].mean()\nstd = df["消费金额"].std()\noutliers = df[df["消费金额"] > mean + <input class="blank-input" id="ex1-2" placeholder="填写数字"> * std]`,
-                answer: "3",
-                alternatives: ["3"],
-                hint: "3σ原则中的σ倍数是多少？",
-                checkFn: (val) => val.trim() === "3"
+                options: [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                ],
+                correctIndex: 2,
+                hint: "3σ原则中的σ倍数是多少？"
             },
             {
                 desc: "使用StandardScaler标准化数据",
-                code: `scaler = StandardScaler()\ndata_scaled = scaler.<input class="blank-input" id="ex1-3" placeholder="填写方法名">(data)`,
-                answer: "fit_transform",
-                alternatives: ["fit_transform"],
-                hint: "StandardScaler中，一次性完成拟合和转换的方法名",
-                checkFn: (val) => val.trim() === "fit_transform"
+                options: [
+                    "fit",
+                    "transform",
+                    "fit_transform",
+                    "predict"
+                ],
+                correctIndex: 2,
+                hint: "StandardScaler中，一次性完成拟合和转换的方法名"
             }
         ],
         tasks: [
@@ -17983,27 +18027,36 @@ df["营收"] = df["消费金额"] * df["消费频次"]
         exercises: [
             {
                 desc: "计算描述统计",
-                code: 'df[["营收","消费金额","消费频次"]].<input class="blank-input" id="ex2-1" placeholder="填写方法名">()',
-                answer: "describe",
-                alternatives: ["describe"],
-                hint: "pandas中一键生成描述统计的方法",
-                checkFn: (val) => val.trim() === "describe"
+                options: [
+                    "summary()",
+                    "describe()",
+                    "info()",
+                    "head()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中一键生成描述统计的方法"
             },
             {
                 desc: "计算Pearson相关系数矩阵",
-                code: `numeric_cols = ["营收","消费金额","消费频次","浏览时长"]\ncorr = df[numeric_cols].<input class="blank-input" id="ex2-2" placeholder="填写方法名">(method="pearson")`,
-                answer: "corr",
-                alternatives: ["corr"],
-                hint: "pandas DataFrame计算相关系数的方法",
-                checkFn: (val) => val.trim() === "corr"
+                options: [
+                    "cov()",
+                    "corr()",
+                    "mean()",
+                    "std()"
+                ],
+                correctIndex: 1,
+                hint: "pandas DataFrame计算相关系数的方法"
             },
             {
                 desc: "绘制相关性热力图",
-                code: 'sns.<input class="blank-input" id="ex2-3" placeholder="填写函数名">(corr, annot=True, cmap="coolwarm")',
-                answer: "heatmap",
-                alternatives: ["heatmap"],
-                hint: "seaborn中绘制热力图的函数",
-                checkFn: (val) => val.trim() === "heatmap"
+                options: [
+                    "scatterplot()",
+                    "lineplot()",
+                    "heatmap()",
+                    "barplot()"
+                ],
+                correctIndex: 2,
+                hint: "seaborn中绘制热力图的函数"
             }
         ],
         tasks: [
@@ -18116,27 +18169,36 @@ print(df.head(10))
         exercises: [
             {
                 desc: "将商品名称转换为one-hot编码",
-                code: 'cart_encoded = pd.<input class="blank-input" id="ex3-1" placeholder="填写函数名">(df["商品名称"], prefix="商品")',
-                answer: "get_dummies",
-                alternatives: ["get_dummies"],
-                hint: "pandas中将分类变量转为哑变量的方法",
-                checkFn: (val) => val.trim() === "get_dummies"
+                options: [
+                    "one_hot()",
+                    "get_dummies()",
+                    "to_numeric()",
+                    "astype()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中将分类变量转为哑变量的方法"
             },
             {
                 desc: "使用Apriori算法挖掘频繁项集",
-                code: 'frequent = <input class="blank-input" id="ex3-2" placeholder="填写函数名">(cart_encoded, min_support=0.05, use_colnames=True)',
-                answer: "apriori",
-                alternatives: ["apriori"],
-                hint: "mlxtend中实现Apriori算法的函数",
-                checkFn: (val) => val.trim() === "apriori"
+                options: [
+                    "frequent_patterns()",
+                    "apriori()",
+                    "find_rules()",
+                    "mine_items()"
+                ],
+                correctIndex: 1,
+                hint: "mlxtend中实现Apriori算法的函数"
             },
             {
                 desc: "从频繁项集生成关联规则",
-                code: 'rules = <input class="blank-input" id="ex3-3" placeholder="填写函数名">(frequent, metric="confidence", min_threshold=0.7)',
-                answer: "association_rules",
-                alternatives: ["association_rules"],
-                hint: "mlxtend中生成关联规则的函数",
-                checkFn: (val) => val.trim() === "association_rules"
+                options: [
+                    "generate_rules()",
+                    "make_rules()",
+                    "association_rules()",
+                    "find_association()"
+                ],
+                correctIndex: 2,
+                hint: "mlxtend中生成关联规则的函数"
             }
         ],
         tasks: [
@@ -18243,28 +18305,47 @@ df_goods = pd.read_csv("goods_data.csv")
         exercises: [
             {
                 desc: "使用StandardScaler标准化数据",
-                code: `scaler = StandardScaler()\ndata_scaled = scaler.<input class="blank-input" id="ex4-1" placeholder="填写方法名">(data)`,
-                answer: "fit_transform",
-                alternatives: ["fit_transform"],
-                hint: "一次性完成拟合和转换的方法",
-                checkFn: (val) => val.trim() === "fit_transform"
+                options: [
+                    "fit()",
+                    "transform()",
+                    "fit_transform()",
+                    "predict()"
+                ],
+                correctIndex: 2,
+                hint: "一次性完成拟合和转换的方法"
             },
             {
-                desc: "创建KMeans模型并拟合数据",
-                code: `kmeans = <input class="blank-input" id="ex4-2" placeholder="填写类名">(n_clusters=4, random_state=42)\nlabels = kmeans.<input class="blank-input" id="ex4-2b" placeholder="填写方法名">(data_scaled)`,
-                answer: "KMeans",
-                answer2: "fit_predict",
-                alternatives: ["KMeans"],
-                hint: "第一个空：sklearn中的KMeans聚类类；第二个空：拟合并返回标签的方法",
-                checkFn: (val) => val.trim() === "KMeans"
+                desc: "创建KMeans模型并拟合数据（类名）",
+                options: [
+                    "KNN",
+                    "KMeans",
+                    "DBSCAN",
+                    "AgglomerativeClustering"
+                ],
+                correctIndex: 1,
+                hint: "sklearn中的KMeans聚类类"
+            },
+            {
+                desc: "创建KMeans模型并拟合数据（方法名）",
+                options: [
+                    "fit()",
+                    "predict()",
+                    "fit_predict()",
+                    "transform()"
+                ],
+                correctIndex: 2,
+                hint: "拟合并返回标签的方法"
             },
             {
                 desc: "使用PCA降维到2维",
-                code: `pca = PCA(n_components=2)\npca_data = pca.<input class="blank-input" id="ex4-3" placeholder="填写方法名">(data_scaled)`,
-                answer: "fit_transform",
-                alternatives: ["fit_transform"],
-                hint: "PCA降维的方法",
-                checkFn: (val) => val.trim() === "fit_transform"
+                options: [
+                    "fit()",
+                    "transform()",
+                    "fit_transform()",
+                    "reduce()"
+                ],
+                correctIndex: 2,
+                hint: "PCA降维的方法"
             }
         ],
         tasks: [
@@ -18368,27 +18449,36 @@ print(df.head())
         exercises: [
             {
                 desc: "R分反向打分（值越小分越高）",
-                code: 'df["R分"] = pd.<input class="blank-input" id="ex5-1" placeholder="填写函数名">(df["最近消费天数"], 5, labels=[5,4,3,2,1])',
-                answer: "cut",
-                alternatives: ["cut"],
-                hint: "pandas中等频/等宽分箱的函数",
-                checkFn: (val) => val.trim() === "cut"
+                options: [
+                    "qcut()",
+                    "cut()",
+                    "bin()",
+                    "groupby()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中等频/等宽分箱的函数"
             },
             {
                 desc: "F分正向打分（值越大分越高）",
-                code: 'df["F分"] = pd.<input class="blank-input" id="ex5-2" placeholder="填写函数名">(df["消费频次"], 5, labels=[1,2,3,4,5])',
-                answer: "cut",
-                alternatives: ["cut"],
-                hint: "与R分使用相同的分箱函数",
-                checkFn: (val) => val.trim() === "cut"
+                options: [
+                    "qcut()",
+                    "cut()",
+                    "bin()",
+                    "groupby()"
+                ],
+                correctIndex: 1,
+                hint: "与R分使用相同的分箱函数"
             },
             {
-                desc: "根据RFM总分进行用户分层",
-                code: `def rfm_level(score):\n    if score >= 13: return <input class="blank-input" id="ex5-3" placeholder="填写分层名称">`,
-                answer: '"高价值用户"',
-                alternatives: ["\"高价值用户\"", "'高价值用户'", "高价值用户"],
-                hint: "RFM总分最高的用户属于哪一类？",
-                checkFn: (val) => val.trim().includes("高价值")
+                desc: "RFM总分最高的用户属于哪一类？",
+                options: [
+                    "流失用户",
+                    "一般用户",
+                    "潜力用户",
+                    "高价值用户"
+                ],
+                correctIndex: 3,
+                hint: "RFM总分最高的用户属于哪一类？"
             }
         ],
         tasks: [
@@ -18494,27 +18584,36 @@ print(df.head())
         exercises: [
             {
                 desc: "拆分训练集和测试集",
-                code: 'X_train, X_test, y_train, y_test = <input class="blank-input" id="ex6-1" placeholder="填写函数名">(X, y, test_size=0.2, random_state=42)',
-                answer: "train_test_split",
-                alternatives: ["train_test_split"],
-                hint: "sklearn.model_selection中拆分数据集的函数",
-                checkFn: (val) => val.trim() === "train_test_split"
+                options: [
+                    "split_data()",
+                    "train_test_split()",
+                    "data_split()",
+                    "split_train_test()"
+                ],
+                correctIndex: 1,
+                hint: "sklearn.model_selection中拆分数据集的函数"
             },
             {
                 desc: "训练线性回归模型",
-                code: `lr = LinearRegression()\nlr.<input class="blank-input" id="ex6-2" placeholder="填写方法名">(X_train, y_train)`,
-                answer: "fit",
-                alternatives: ["fit"],
-                hint: "sklearn模型训练的标准方法名",
-                checkFn: (val) => val.trim() === "fit"
+                options: [
+                    "train()",
+                    "fit()",
+                    "learn()",
+                    "build()"
+                ],
+                correctIndex: 1,
+                hint: "sklearn模型训练的标准方法名"
             },
             {
                 desc: "使用模型进行预测并计算R2",
-                code: 'r2 = r2_score(y_test, lr.<input class="blank-input" id="ex6-3" placeholder="填写方法名">(X_test))',
-                answer: "predict",
-                alternatives: ["predict"],
-                hint: "sklearn模型预测的方法名",
-                checkFn: (val) => val.trim() === "predict"
+                options: [
+                    "forecast()",
+                    "estimate()",
+                    "predict()",
+                    "infer()"
+                ],
+                correctIndex: 2,
+                hint: "sklearn模型预测的方法名"
             }
         ],
         tasks: [
@@ -18617,27 +18716,36 @@ df = pd.read_csv("sales_data.csv")
         exercises: [
             {
                 desc: "初始化随机森林回归模型",
-                code: 'rf = <input class="blank-input" id="ex7-1" placeholder="填写类名">(n_estimators=100, max_depth=5, random_state=42)',
-                answer: "RandomForestRegressor",
-                alternatives: ["RandomForestRegressor"],
-                hint: "sklearn.ensemble中的随机森林回归类",
-                checkFn: (val) => val.trim() === "RandomForestRegressor"
+                options: [
+                    "RandomForestClassifier",
+                    "RandomForestRegressor",
+                    "DecisionTreeRegressor",
+                    "GradientBoostingRegressor"
+                ],
+                correctIndex: 1,
+                hint: "sklearn.ensemble中的随机森林回归类"
             },
             {
                 desc: "获取特征重要性",
-                code: 'importance = pd.DataFrame({"特征": X.columns, "重要性": rf.<input class="blank-input" id="ex7-2" placeholder="填写属性名">})',
-                answer: "feature_importances_",
-                alternatives: ["feature_importances_"],
-                hint: "随机森林模型中存储特征重要性的属性",
-                checkFn: (val) => val.trim() === "feature_importances_"
+                options: [
+                    "feature_importances_",
+                    "importances_",
+                    "coef_",
+                    "feature_weights_"
+                ],
+                correctIndex: 0,
+                hint: "随机森林模型中存储特征重要性的属性"
             },
             {
                 desc: "使用模型进行预测",
-                code: 'y_pred = rf.<input class="blank-input" id="ex7-3" placeholder="填写方法名">(X_test)',
-                answer: "predict",
-                alternatives: ["predict"],
-                hint: "sklearn模型预测的通用方法",
-                checkFn: (val) => val.trim() === "predict"
+                options: [
+                    "forecast()",
+                    "estimate()",
+                    "predict()",
+                    "infer()"
+                ],
+                correctIndex: 2,
+                hint: "sklearn模型预测的通用方法"
             }
         ],
         tasks: [
@@ -18738,27 +18846,36 @@ print(df.head())
         exercises: [
             {
                 desc: "将日期字符串转换为datetime类型",
-                code: 'df["日期"] = pd.<input class="blank-input" id="ex8-1" placeholder="填写函数名">(df["日期"])',
-                answer: "to_datetime",
-                alternatives: ["to_datetime"],
-                hint: "pandas中将字符串转为datetime的函数",
-                checkFn: (val) => val.trim() === "to_datetime"
+                options: [
+                    "to_date()",
+                    "to_datetime()",
+                    "parse_date()",
+                    "as_datetime()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中将字符串转为datetime的函数"
             },
             {
                 desc: "将日期列设置为DataFrame索引",
-                code: 'df.<input class="blank-input" id="ex8-2" placeholder="填写方法名">(df["日期"], inplace=True)',
-                answer: "set_index",
-                alternatives: ["set_index"],
-                hint: "pandas中设置索引的方法",
-                checkFn: (val) => val.trim() === "set_index"
+                options: [
+                    "set_index()",
+                    "index()",
+                    "use_index()",
+                    "as_index()"
+                ],
+                correctIndex: 0,
+                hint: "pandas中设置索引的方法"
             },
             {
                 desc: "按月重采样并求和",
-                code: 'monthly = df.<input class="blank-input" id="ex8-3" placeholder="填写重采样频率">("M").sum()',
-                answer: "resample",
-                alternatives: ["resample"],
-                hint: "pandas中时间序列重采样的方法",
-                checkFn: (val) => val.trim() === "resample"
+                options: [
+                    "groupby()",
+                    "resample()",
+                    "aggregate()",
+                    "pivot()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中时间序列重采样的方法"
             }
         ],
         tasks: [
@@ -18866,27 +18983,36 @@ print(df.head())
         exercises: [
             {
                 desc: "计算3σ原则的上界",
-                code: `mean = df["订单金额"].mean()\nstd = df["订单金额"].std()\nupper = mean + 3 * <input class="blank-input" id="ex9-1" placeholder="填写变量名">`,
-                answer: "std",
-                alternatives: ["std"],
-                hint: "标准差变量的名称",
-                checkFn: (val) => val.trim() === "std"
+                options: [
+                    "mean",
+                    "std",
+                    "var",
+                    "median"
+                ],
+                correctIndex: 1,
+                hint: "标准差变量的名称"
             },
             {
                 desc: "计算第一四分位数Q1",
-                code: 'Q1 = df["订单金额"].<input class="blank-input" id="ex9-2" placeholder="填写方法名">(0.25)',
-                answer: "quantile",
-                alternatives: ["quantile"],
-                hint: "pandas中计算分位数的方法",
-                checkFn: (val) => val.trim() === "quantile"
+                options: [
+                    "percentile()",
+                    "quantile()",
+                    "quartile()",
+                    "median()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中计算分位数的方法"
             },
             {
                 desc: "初始化孤立森林模型",
-                code: 'iso = <input class="blank-input" id="ex9-3" placeholder="填写类名">(n_estimators=100, contamination=0.05, random_state=42)',
-                answer: "IsolationForest",
-                alternatives: ["IsolationForest"],
-                hint: "sklearn.ensemble中的孤立森林类",
-                checkFn: (val) => val.trim() === "IsolationForest"
+                options: [
+                    "RandomForest",
+                    "IsolationForest",
+                    "OneClassSVM",
+                    "LocalOutlierFactor"
+                ],
+                correctIndex: 1,
+                hint: "sklearn.ensemble中的孤立森林类"
             }
         ],
         tasks: [
@@ -18986,27 +19112,36 @@ df_cart = pd.read_csv("cart_data.csv")
         exercises: [
             {
                 desc: "查看DataFrame的描述统计",
-                code: 'df.<input class="blank-input" id="ex10-1" placeholder="填写方法名">()',
-                answer: "describe",
-                alternatives: ["describe"],
-                hint: "pandas中生成描述统计的方法",
-                checkFn: (val) => val.trim() === "describe"
+                options: [
+                    "summary()",
+                    "describe()",
+                    "info()",
+                    "head()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中生成描述统计的方法"
             },
             {
                 desc: "计算相关系数矩阵",
-                code: 'df.<input class="blank-input" id="ex10-2" placeholder="填写方法名">()',
-                answer: "corr",
-                alternatives: ["corr"],
-                hint: "pandas中计算相关系数的方法",
-                checkFn: (val) => val.trim() === "corr"
+                options: [
+                    "cov()",
+                    "corr()",
+                    "mean()",
+                    "std()"
+                ],
+                correctIndex: 1,
+                hint: "pandas中计算相关系数的方法"
             },
             {
                 desc: "计算R2得分",
-                code: 'r2_score(y_test, <input class="blank-input" id="ex10-3" placeholder="填写变量名">)',
-                answer: "y_pred",
-                alternatives: ["y_pred"],
-                hint: "模型预测结果的常见变量名",
-                checkFn: (val) => val.trim() === "y_pred"
+                options: [
+                    "X_test",
+                    "y_train",
+                    "y_pred",
+                    "y_true"
+                ],
+                correctIndex: 2,
+                hint: "模型预测结果的常见变量名"
             }
         ],
         tasks: [
@@ -19790,8 +19925,15 @@ function renderProject(area, projId) {
                 ${proj.exercises.map((ex, i) => `
                     <div class="exercise-card">
                         <h4>练习 ${i+1}: ${ex.desc}</h4>
-                        <div class="exercise-desc">请填写下方代码中缺失的部分：</div>
-                        <div class="exercise-code">${ex.code}</div>
+                        <div class="exercise-desc">请选择正确答案：</div>
+                        <div class="exercise-options">
+                            ${ex.options.map((opt, j) => `
+                                <label class="exercise-option">
+                                    <input type="radio" name="ex-${projId}-${i}" value="${j}" id="ex-opt-${projId}-${i}-${j}">
+                                    <span>${escapeHtml(opt)}</span>
+                                </label>
+                            `).join("")}
+                        </div>
                         <div class="exercise-actions">
                             <button class="btn btn-success" onclick="checkExercise('${projId}', ${i})">
                                 <i class="fas fa-check"></i> 检查答案
@@ -20617,19 +20759,23 @@ function checkExercise(projId, exIdx) {
     const ex = proj.exercises[exIdx];
     const resultEl = document.getElementById(`ex-result-${projId}-${exIdx}`);
 
-    // Get input value
-    const inputId = `ex${projId.replace("proj-", "")}-${exIdx + 1}`;
-    const input = document.getElementById(inputId);
-    if (!input) return;
+    // Get selected radio value
+    const radios = document.getElementsByName(`ex-${projId}-${exIdx}`);
+    let selected = null;
+    for (const r of radios) {
+        if (r.checked) {
+            selected = parseInt(r.value);
+            break;
+        }
+    }
 
-    const val = input.value.trim();
-    if (!val) {
+    if (selected === null) {
         resultEl.className = "exercise-result wrong";
-        resultEl.textContent = "请填写答案后再检查";
+        resultEl.textContent = "请选择一个答案后再检查";
         return;
     }
 
-    if (ex.checkFn(val)) {
+    if (selected === ex.correctIndex) {
         resultEl.className = "exercise-result correct";
         resultEl.innerHTML = '<i class="fas fa-check-circle"></i> 正确！做得好！';
     } else {
@@ -20651,7 +20797,7 @@ function showAnswer(projId, exIdx) {
     const ex = proj.exercises[exIdx];
     const resultEl = document.getElementById(`ex-result-${projId}-${exIdx}`);
     resultEl.className = "exercise-result answer";
-    resultEl.innerHTML = `<i class="fas fa-eye"></i> 正确答案：${escapeHtml(ex.answer)}`;
+    resultEl.innerHTML = `<i class="fas fa-eye"></i> 正确答案：${escapeHtml(ex.options[ex.correctIndex])}`;
 }
 
 // ============================================================
