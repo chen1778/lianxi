@@ -19624,13 +19624,15 @@ async function runPlaygroundCode() {
         pyodide.setStdout({ batched: (msg) => { capturedOutput += msg + "\n"; } });
         pyodide.setStderr({ batched: (msg) => { capturedOutput += "[STDERR] " + msg + "\n"; } });
 
+        pyodide.globals.set("__user_code__", code);
+
         await pyodide.runPythonAsync(`
 import base64, io, sys
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
-_code = ${JSON.stringify(code)}
+_code = __user_code__
 _lines = _code.rstrip().split("\\n")
 _exec_lines = _lines[:-1] if _lines else []
 _last_line = _lines[-1].strip() if _lines else ""
@@ -20066,13 +20068,15 @@ async function runGuidedStep(projId, stepIdx) {
         pyodide.setStdout({ batched: (msg) => { capturedOutput += msg + "\n"; } });
         pyodide.setStderr({ batched: (msg) => { capturedOutput += "[STDERR] " + msg + "\n"; } });
 
+        pyodide.globals.set("__user_code__", code);
+
         await pyodide.runPythonAsync(`
 import base64, io, sys
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
-_code = ${JSON.stringify(code)}
+_code = __user_code__
 _lines = _code.rstrip().split("\\n")
 _exec_lines = _lines[:-1] if _lines else []
 _last_line = _lines[-1].strip() if _lines else ""
@@ -20683,13 +20687,15 @@ async function runProjectCode(projId) {
             pyodide.setStdout({ batched: (msg) => { capturedOutput += msg + "\n"; } });
             pyodide.setStderr({ batched: (msg) => { capturedOutput += "[STDERR] " + msg + "\n"; } });
 
+            pyodide.globals.set("__user_code__", code);
+
             result = await pyodide.runPythonAsync(`
 import base64, io, sys
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
-_code = ${JSON.stringify(code)}
+_code = __user_code__
 _lines = _code.rstrip().split("\\n")
 _exec_lines = _lines[:-1] if _lines else []
 _last_line = _lines[-1].strip() if _lines else ""
