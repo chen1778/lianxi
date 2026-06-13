@@ -19630,8 +19630,16 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
+_code = ${JSON.stringify(code)}
+_lines = _code.rstrip().split("\\n")
+_exec_lines = _lines[:-1] if _lines else []
+_last_line = _lines[-1].strip() if _lines else ""
 try:
-${code.split("\n").map(line => "    " + line).join("\n")}
+    exec("\\n".join(_exec_lines))
+    if _last_line and not _last_line.startswith("#") and not _last_line.startswith("import ") and not _last_line.startswith("from ") and not _last_line.startswith("def ") and not _last_line.startswith("class ") and not _last_line.startswith("if ") and not _last_line.startswith("for ") and not _last_line.startswith("while ") and not _last_line.startswith("with ") and not _last_line.startswith("return "):
+        _result = eval(_last_line)
+        if _result is not None:
+            print(_result)
 except Exception as e:
     print("__ERROR__" + str(type(e).__name__) + ": " + str(e))
 
@@ -19778,7 +19786,7 @@ function renderProject(area, projId) {
                     <i class="fas fa-clipboard-list"></i> 项目要求
                 </button>
                 <button class="tab-btn" onclick="switchTab('${projId}', 'exercise', this)">
-                    <i class="fas fa-pen-to-square"></i> 填空练习
+                    <i class="fas fa-pen-to-square"></i> 选择题练习
                 </button>
                 <button class="tab-btn" onclick="switchTab('${projId}', 'code', this)">
                     <i class="fas fa-shoe-prints"></i> 分步练习
@@ -19877,7 +19885,7 @@ function renderProject(area, projId) {
                 </div>
                 `).join("") : `
                 <div class="exercise-card">
-                    <p style="color:var(--text-secondary)">该项目暂未配置分步练习，请使用"填空练习"标签。</p>
+                    <p style="color:var(--text-secondary)">该项目暂未配置分步练习，请使用"选择题练习"标签。</p>
                 </div>
                 `}
             </div>
@@ -20064,8 +20072,16 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
+_code = ${JSON.stringify(code)}
+_lines = _code.rstrip().split("\\n")
+_exec_lines = _lines[:-1] if _lines else []
+_last_line = _lines[-1].strip() if _lines else ""
 try:
-${code.split("\n").map(line => "    " + line).join("\n")}
+    exec("\\n".join(_exec_lines))
+    if _last_line and not _last_line.startswith("#") and not _last_line.startswith("import ") and not _last_line.startswith("from ") and not _last_line.startswith("def ") and not _last_line.startswith("class ") and not _last_line.startswith("if ") and not _last_line.startswith("for ") and not _last_line.startswith("while ") and not _last_line.startswith("with ") and not _last_line.startswith("return "):
+        _result = eval(_last_line)
+        if _result is not None:
+            print(_result)
 except Exception as e:
     print("__ERROR__" + str(type(e).__name__) + ": " + str(e))
 
@@ -20673,8 +20689,16 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
+_code = ${JSON.stringify(code)}
+_lines = _code.rstrip().split("\\n")
+_exec_lines = _lines[:-1] if _lines else []
+_last_line = _lines[-1].strip() if _lines else ""
 try:
-${code.split("\n").map(line => "    " + line).join("\n")}
+    exec("\\n".join(_exec_lines))
+    if _last_line and not _last_line.startswith("#") and not _last_line.startswith("import ") and not _last_line.startswith("from ") and not _last_line.startswith("def ") and not _last_line.startswith("class ") and not _last_line.startswith("if ") and not _last_line.startswith("for ") and not _last_line.startswith("while ") and not _last_line.startswith("with ") and not _last_line.startswith("return "):
+        _result = eval(_last_line)
+        if _result is not None:
+            print(_result)
 except Exception as e:
     print("__ERROR__" + str(type(e).__name__) + ": " + str(e))
 
