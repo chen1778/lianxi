@@ -19778,7 +19778,7 @@ function renderProject(area, projId) {
                     <i class="fas fa-clipboard-list"></i> 项目要求
                 </button>
                 <button class="tab-btn" onclick="switchTab('${projId}', 'exercise', this)">
-                    <i class="fas fa-pen-to-square"></i> 填空练习
+                    <i class="fas fa-pen-to-square"></i> 选择题练习
                 </button>
                 <button class="tab-btn" onclick="switchTab('${projId}', 'code', this)">
                     <i class="fas fa-shoe-prints"></i> 分步练习
@@ -19877,7 +19877,7 @@ function renderProject(area, projId) {
                 </div>
                 `).join("") : `
                 <div class="exercise-card">
-                    <p style="color:var(--text-secondary)">该项目暂未配置分步练习，请使用"填空练习"标签。</p>
+                    <p style="color:var(--text-secondary)">该项目暂未配置分步练习，请使用"选择题练习"标签。</p>
                 </div>
                 `}
             </div>
