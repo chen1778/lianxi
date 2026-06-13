@@ -19633,11 +19633,11 @@ warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 _code = __user_code__
-_lines = _code.rstrip().split("\\n")
+_lines = _code.rstrip().split("\n")
 _exec_lines = _lines[:-1] if _lines else []
 _last_line = _lines[-1].strip() if _lines else ""
 try:
-    exec("\\n".join(_exec_lines))
+    exec("\n".join(_exec_lines))
     if _last_line and not _last_line.startswith("#") and not _last_line.startswith("import ") and not _last_line.startswith("from ") and not _last_line.startswith("def ") and not _last_line.startswith("class ") and not _last_line.startswith("if ") and not _last_line.startswith("for ") and not _last_line.startswith("while ") and not _last_line.startswith("with ") and not _last_line.startswith("return "):
         _result = eval(_last_line)
         if _result is not None:
@@ -20077,11 +20077,11 @@ warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 _code = __user_code__
-_lines = _code.rstrip().split("\\n")
+_lines = _code.rstrip().split("\n")
 _exec_lines = _lines[:-1] if _lines else []
 _last_line = _lines[-1].strip() if _lines else ""
 try:
-    exec("\\n".join(_exec_lines))
+    exec("\n".join(_exec_lines))
     if _last_line and not _last_line.startswith("#") and not _last_line.startswith("import ") and not _last_line.startswith("from ") and not _last_line.startswith("def ") and not _last_line.startswith("class ") and not _last_line.startswith("if ") and not _last_line.startswith("for ") and not _last_line.startswith("while ") and not _last_line.startswith("with ") and not _last_line.startswith("return "):
         _result = eval(_last_line)
         if _result is not None:
@@ -20696,11 +20696,11 @@ warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib.pyplot as plt
 
 _code = __user_code__
-_lines = _code.rstrip().split("\\n")
+_lines = _code.rstrip().split("\n")
 _exec_lines = _lines[:-1] if _lines else []
 _last_line = _lines[-1].strip() if _lines else ""
 try:
-    exec("\\n".join(_exec_lines))
+    exec("\n".join(_exec_lines))
     if _last_line and not _last_line.startswith("#") and not _last_line.startswith("import ") and not _last_line.startswith("from ") and not _last_line.startswith("def ") and not _last_line.startswith("class ") and not _last_line.startswith("if ") and not _last_line.startswith("for ") and not _last_line.startswith("while ") and not _last_line.startswith("with ") and not _last_line.startswith("return "):
         _result = eval(_last_line)
         if _result is not None:
